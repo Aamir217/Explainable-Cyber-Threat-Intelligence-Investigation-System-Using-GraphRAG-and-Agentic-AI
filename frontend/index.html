@@ -92,6 +92,31 @@
   }
   .path-item .arrow { color: var(--accent); }
 
+  .graph-toolbar { display: flex; gap: 8px; margin-bottom: 10px; }
+  .graph-toolbar button { padding: 6px 10px; font-size: 12px; }
+  .graph-toolbar button.active { border-color: var(--accent); color: var(--accent); }
+
+  .graph-diagram-wrap { overflow-x: auto; border-radius: 8px; }
+  .graph-svg { display: block; }
+  .graph-node rect { fill: #16233b; transition: filter .1s ease; cursor: default; }
+  .graph-node:hover rect, .graph-node:focus rect { filter: brightness(1.35); outline: none; }
+  .graph-node text { font-size: 11.5px; font-family: inherit; fill: var(--text); pointer-events: none; }
+  .graph-edge-label-bg { fill: var(--panel); }
+  .graph-edge-label { font-size: 10px; fill: var(--muted); pointer-events: none; }
+
+  .graph-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; font-size: 11.5px; color: var(--muted); }
+  .graph-legend .key { display: flex; align-items: center; gap: 6px; }
+  .graph-legend .swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; border: 2px solid; background: #16233b; }
+
+  #graph-tooltip {
+    position: fixed; pointer-events: none; z-index: 50;
+    background: #0e1729; border: 1px solid var(--panel-border);
+    border-radius: 8px; padding: 6px 10px; font-size: 12px;
+    color: var(--text); box-shadow: 0 4px 16px rgba(0,0,0,.4);
+    display: none; white-space: nowrap;
+  }
+  #graph-tooltip .t-sub { color: var(--muted); margin-top: 2px; }
+
   .evidence-item {
     border-left: 3px solid var(--accent-2);
     padding: 8px 12px;
@@ -151,6 +176,8 @@
   <div id="compare-result"></div>
 </main>
 
+<div id="graph-tooltip"></div>
+
 <script>
 const API = "";
 
@@ -163,6 +190,292 @@ function el(html) {
 function renderGraphPaths(paths) {
   if (!paths || paths.length === 0) return '<div class="empty">No graph reasoning path (this system may not use the knowledge graph).</div>';
   return paths.map(p => `<div class="path-item">${escapeHtml(p.text)}</div>`).join("");
+}
+
+// ---------------------------------------------------------------------------
+// Knowledge-graph diagram: merges every returned reasoning path into one
+// small node-link graph (nodes deduped by id, edges deduped by
+// source+target+type) and lays it out in columns by hop distance from the
+// query's linked entity/entities, so it reads as a real graph rather than a
+// list of separate chains.
+// ---------------------------------------------------------------------------
+
+const NODE_TYPE_COLORS = {
+  ThreatActor: "#3987e5",
+  Malware: "#d95926",
+  Technique: "#199e70",
+  CVE: "#c98500",
+  Product: "#d55181",
+  Campaign: "#008300",
+  Sector: "#9085e9",
+  Tactic: "#5b6b85",
+  Mitigation: "#5b6b85",
+};
+const NODE_TYPE_LABELS = {
+  ThreatActor: "Threat Actor", Malware: "Malware", Technique: "Technique",
+  CVE: "CVE", Product: "Product", Campaign: "Campaign", Sector: "Sector",
+  Tactic: "Tactic", Mitigation: "Mitigation",
+};
+
+function buildGraphFromPaths(paths) {
+  const nodes = new Map();
+  const edges = new Map();
+  paths.forEach(path => {
+    path.nodes.forEach((n, i) => {
+      const existing = nodes.get(n.id);
+      if (!existing || i < existing.level) nodes.set(n.id, { id: n.id, name: n.name, type: n.type, level: i });
+    });
+    path.edges.forEach((e, i) => {
+      const a = path.nodes[i], b = path.nodes[i + 1];
+      const key = `${a.id}->${b.id}:${e.type}`;
+      if (!edges.has(key)) edges.set(key, { sourceId: a.id, targetId: b.id, type: e.type, forward: e.forward });
+    });
+  });
+  return { nodes: [...nodes.values()], edges: [...edges.values()] };
+}
+
+function connectedComponents(nodes, edges) {
+  const parent = new Map(nodes.map(n => [n.id, n.id]));
+  function find(x) { while (parent.get(x) !== x) { parent.set(x, parent.get(parent.get(x))); x = parent.get(x); } return x; }
+  function union(a, b) { const ra = find(a), rb = find(b); if (ra !== rb) parent.set(ra, rb); }
+  edges.forEach(e => { if (parent.has(e.sourceId) && parent.has(e.targetId)) union(e.sourceId, e.targetId); });
+  const groups = new Map();
+  nodes.forEach(n => {
+    const root = find(n.id);
+    if (!groups.has(root)) groups.set(root, []);
+    groups.get(root).push(n);
+  });
+  return [...groups.values()];
+}
+
+function layoutGraph(nodes, edges) {
+  const COL_W = 230, ROW_H = 62, COMPONENT_GAP = 30;
+  const components = connectedComponents(nodes, edges);
+  const positioned = [];
+  let yOffset = 20;
+  components.forEach(comp => {
+    const byLevel = new Map();
+    comp.forEach(n => {
+      if (!byLevel.has(n.level)) byLevel.set(n.level, []);
+      byLevel.get(n.level).push(n);
+    });
+    const maxRows = Math.max(...[...byLevel.values()].map(a => a.length));
+    [...byLevel.keys()].sort((a, b) => a - b).forEach(level => {
+      byLevel.get(level).forEach((n, idx) => {
+        positioned.push({ ...n, x: level * COL_W + 95, y: yOffset + idx * ROW_H + ROW_H / 2 });
+      });
+    });
+    yOffset += maxRows * ROW_H + COMPONENT_GAP;
+  });
+  const maxLevel = Math.max(0, ...nodes.map(n => n.level));
+  return { positioned, width: (maxLevel + 1) * COL_W + 60, height: Math.max(yOffset, ROW_H) };
+}
+
+const SVGNS = "http://www.w3.org/2000/svg";
+
+function showGraphTooltip(evt, title, sub) {
+  const tip = document.getElementById("graph-tooltip");
+  tip.innerHTML = "";
+  const t = document.createElement("div");
+  t.textContent = title;
+  const s = document.createElement("div");
+  s.className = "t-sub";
+  s.textContent = sub;
+  tip.appendChild(t);
+  tip.appendChild(s);
+  tip.style.display = "block";
+  tip.style.left = (evt.clientX + 14) + "px";
+  tip.style.top = (evt.clientY + 14) + "px";
+}
+function hideGraphTooltip() { document.getElementById("graph-tooltip").style.display = "none"; }
+
+function renderGraphDiagram(container, paths) {
+  if (!paths || paths.length === 0) {
+    container.innerHTML = '<div class="empty">No graph reasoning path (this system may not use the knowledge graph).</div>';
+    return;
+  }
+
+  const { nodes, edges } = buildGraphFromPaths(paths);
+  const { positioned, width, height } = layoutGraph(nodes, edges);
+  const posById = new Map(positioned.map(n => [n.id, n]));
+
+  container.innerHTML = "";
+  const svg = document.createElementNS(SVGNS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+  svg.classList.add("graph-svg");
+  container.appendChild(svg); // attach before measuring text (getBBox needs a live SVG)
+
+  const defs = document.createElementNS(SVGNS, "defs");
+  const marker = document.createElementNS(SVGNS, "marker");
+  marker.setAttribute("id", "arrowhead");
+  marker.setAttribute("viewBox", "0 0 10 10");
+  marker.setAttribute("refX", "9");
+  marker.setAttribute("refY", "5");
+  marker.setAttribute("markerWidth", "6");
+  marker.setAttribute("markerHeight", "6");
+  marker.setAttribute("orient", "auto-start-reverse");
+  const arrowPath = document.createElementNS(SVGNS, "path");
+  arrowPath.setAttribute("d", "M0,0 L10,5 L0,10 z");
+  arrowPath.setAttribute("fill", "#5b6b85");
+  marker.appendChild(arrowPath);
+  defs.appendChild(marker);
+  svg.appendChild(defs);
+
+  const edgeGroup = document.createElementNS(SVGNS, "g");
+  svg.appendChild(edgeGroup);
+  const labelJobs = []; // rendered after nodes, so labels never sit under a node box
+  edges.forEach(e => {
+    const a = posById.get(e.sourceId), b = posById.get(e.targetId);
+    if (!a || !b) return;
+    const [from, to] = e.forward ? [a, b] : [b, a]; // arrowhead follows the real relationship direction
+
+    const line = document.createElementNS(SVGNS, "line");
+    line.setAttribute("x1", from.x); line.setAttribute("y1", from.y);
+    line.setAttribute("x2", to.x); line.setAttribute("y2", to.y);
+    line.setAttribute("stroke", "#33415c");
+    line.setAttribute("stroke-width", "1.5");
+    line.setAttribute("marker-end", "url(#arrowhead)");
+    edgeGroup.appendChild(line);
+
+    const hit = document.createElementNS(SVGNS, "line");
+    hit.setAttribute("x1", from.x); hit.setAttribute("y1", from.y);
+    hit.setAttribute("x2", to.x); hit.setAttribute("y2", to.y);
+    hit.setAttribute("stroke", "transparent");
+    hit.setAttribute("stroke-width", "16");
+    hit.style.cursor = "default";
+    hit.addEventListener("pointermove", ev => showGraphTooltip(ev, e.type, `${a.name} → ${b.name}`));
+    hit.addEventListener("pointerleave", hideGraphTooltip);
+    edgeGroup.appendChild(hit);
+
+    // Perpendicular unit vector to the edge, used to nudge this edge's label
+    // off any node box it would otherwise land on top of.
+    const dx = to.x - from.x, dy = to.y - from.y;
+    const len = Math.hypot(dx, dy) || 1;
+    labelJobs.push({
+      x: (from.x + to.x) / 2, y: (from.y + to.y) / 2,
+      perpX: -dy / len, perpY: dx / len,
+      text: e.type,
+    });
+  });
+
+  const nodeGroup = document.createElementNS(SVGNS, "g");
+  svg.appendChild(nodeGroup);
+  const typesSeen = new Set();
+  const nodeBoxes = []; // used to keep edge labels from landing on top of a node
+  positioned.forEach(n => {
+    typesSeen.add(n.type);
+    const g = document.createElementNS(SVGNS, "g");
+    g.classList.add("graph-node");
+    g.setAttribute("tabindex", "0");
+    g.setAttribute("transform", `translate(${n.x}, ${n.y})`);
+    nodeGroup.appendChild(g);
+
+    const text = document.createElementNS(SVGNS, "text");
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dy", "0.32em");
+    text.textContent = n.name;
+    g.appendChild(text);
+
+    const bbox = text.getBBox();
+    const padX = 10, padY = 7;
+    const rect = document.createElementNS(SVGNS, "rect");
+    rect.setAttribute("x", -(bbox.width / 2 + padX));
+    rect.setAttribute("y", -(bbox.height / 2 + padY));
+    rect.setAttribute("width", bbox.width + padX * 2);
+    rect.setAttribute("height", bbox.height + padY * 2);
+    rect.setAttribute("rx", 8);
+    rect.setAttribute("stroke", NODE_TYPE_COLORS[n.type] || "#5b6b85");
+    rect.setAttribute("stroke-width", "2");
+    g.insertBefore(rect, text);
+    nodeBoxes.push({ x: n.x, y: n.y, w: bbox.width + padX * 2 + 6, h: bbox.height + padY * 2 + 6 });
+
+    const sub = NODE_TYPE_LABELS[n.type] || n.type;
+    g.addEventListener("pointermove", ev => showGraphTooltip(ev, n.name, sub));
+    g.addEventListener("pointerleave", hideGraphTooltip);
+    g.addEventListener("focus", ev => showGraphTooltip(ev, n.name, sub));
+    g.addEventListener("blur", hideGraphTooltip);
+  });
+
+  // Edge labels last, on top of everything, so a crossing line or a node box
+  // never occludes the relationship type.
+  const labelGroup = document.createElementNS(SVGNS, "g");
+  svg.appendChild(labelGroup);
+  labelJobs.forEach(job => {
+    // Nudge perpendicular to the edge, away from any node box the raw
+    // midpoint would otherwise land on -- a few short chains sharing a
+    // column easily put an edge's midpoint right on an unrelated node.
+    let lx = job.x, ly = job.y;
+    const estW = job.text.length * 6.5 + 10, estH = 15;
+    const collidesAt = (x, y) => nodeBoxes.some(nb =>
+      Math.abs(x - nb.x) < (estW / 2 + nb.w / 2) && Math.abs(y - nb.y) < (estH / 2 + nb.h / 2)
+    );
+    for (let attempt = 1; attempt <= 4 && collidesAt(lx, ly); attempt++) {
+      lx = job.x + job.perpX * 13 * attempt;
+      ly = job.y + job.perpY * 13 * attempt;
+    }
+
+    const label = document.createElementNS(SVGNS, "text");
+    label.setAttribute("x", lx);
+    label.setAttribute("y", ly);
+    label.setAttribute("text-anchor", "middle");
+    label.setAttribute("class", "graph-edge-label");
+    label.textContent = job.text;
+    labelGroup.appendChild(label);
+    const lbox = label.getBBox();
+    const pad = 3;
+    const bg = document.createElementNS(SVGNS, "rect");
+    bg.setAttribute("x", lbox.x - pad);
+    bg.setAttribute("y", lbox.y - pad);
+    bg.setAttribute("width", lbox.width + pad * 2);
+    bg.setAttribute("height", lbox.height + pad * 2);
+    bg.setAttribute("rx", 3);
+    bg.setAttribute("class", "graph-edge-label-bg");
+    labelGroup.insertBefore(bg, label);
+  });
+
+  const legend = document.getElementById("graph-legend");
+  if (legend) {
+    legend.innerHTML = "";
+    [...typesSeen].sort().forEach(type => {
+      const key = document.createElement("div");
+      key.className = "key";
+      const swatch = document.createElement("span");
+      swatch.className = "swatch";
+      swatch.style.borderColor = NODE_TYPE_COLORS[type] || "#5b6b85";
+      const label = document.createElement("span");
+      label.textContent = NODE_TYPE_LABELS[type] || type;
+      key.appendChild(swatch);
+      key.appendChild(label);
+      legend.appendChild(key);
+    });
+  }
+}
+
+function initGraphPanel(paths) {
+  const toolbar = document.getElementById("graph-toolbar");
+  const diagram = document.getElementById("graph-diagram");
+  const list = document.getElementById("graph-list");
+  toolbar.innerHTML = "";
+
+  const diagramBtn = document.createElement("button");
+  diagramBtn.textContent = "Diagram";
+  diagramBtn.className = "active";
+  const listBtn = document.createElement("button");
+  listBtn.textContent = "List";
+  diagramBtn.addEventListener("click", () => {
+    diagram.style.display = ""; list.style.display = "none";
+    diagramBtn.classList.add("active"); listBtn.classList.remove("active");
+  });
+  listBtn.addEventListener("click", () => {
+    diagram.style.display = "none"; list.style.display = "";
+    listBtn.classList.add("active"); diagramBtn.classList.remove("active");
+  });
+  toolbar.appendChild(diagramBtn);
+  toolbar.appendChild(listBtn);
+
+  renderGraphDiagram(diagram, paths);
 }
 
 function renderEvidence(citations) {
@@ -203,7 +516,10 @@ function renderResultCard(result, { compact } = {}) {
       </div>
       <div class="card">
         <h2>Knowledge Graph Reasoning Path</h2>
-        ${renderGraphPaths(result.graph_paths)}
+        <div class="graph-toolbar" id="graph-toolbar"></div>
+        <div id="graph-diagram" class="graph-diagram-wrap"></div>
+        <div id="graph-list" style="display:none;">${renderGraphPaths(result.graph_paths)}</div>
+        <div class="graph-legend" id="graph-legend"></div>
       </div>
     </div>
     <div class="card" style="margin-top:14px;">
@@ -230,6 +546,7 @@ async function ask() {
     if (!res.ok) throw new Error(await res.text());
     const result = await res.json();
     singleDiv.innerHTML = renderResultCard(result);
+    initGraphPanel(result.graph_paths);
   } catch (e) {
     singleDiv.innerHTML = `<div class="error">Error: ${escapeHtml(e.message)}</div>`;
   }

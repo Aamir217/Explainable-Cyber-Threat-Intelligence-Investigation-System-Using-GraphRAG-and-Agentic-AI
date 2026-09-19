@@ -20,22 +20,45 @@ Every answer comes back with **citations**, an explicit **graph reasoning path**
 (for the agentic system) a **faithfulness score** — the explainability layer the naive
 baseline cannot produce.
 
-## Why this is runnable with zero setup
+## Runs entirely on local models — no cloud API required
 
-The whole stack works **offline, with no API keys, no Docker, no model downloads**:
+By default this system uses **no cloud LLM API**:
 
+- **LLM**: [Ollama](https://ollama.com) running locally (`LLM_PROVIDER=ollama`, the
+  default). Install Ollama, pull a model, and the system talks to it over
+  `http://localhost:11434` — nothing leaves your machine.
+- **Embeddings**: a local `sentence-transformers` model (`EMBEDDING_BACKEND=sentence-transformers`,
+  the default, `all-MiniLM-L6-v2`) for real semantic similarity. Downloaded once from
+  HuggingFace, cached, then runs fully offline on CPU.
 - **Graph store**: in-memory (`networkx`-backed) by default; a real `Neo4jGraphStore`
-  implementing the identical interface is included for production use.
-- **Embeddings**: a deterministic, dependency-free hashed bag-of-words embedder by
-  default (`EMBEDDING_BACKEND=hashing`); swap in `sentence-transformers` for real
-  semantic embeddings.
-- **LLM**: a deterministic `TemplateLLM` that synthesizes grounded answers directly from
-  retrieved graph paths and document evidence by default (`LLM_PROVIDER=template`);
-  swap in Anthropic Claude or OpenAI with an API key.
+  implementing the identical interface is included if you want to run your own local
+  Neo4j instance instead (`docker-compose.yml`).
 - **Data**: a curated sample corpus (`data/sample/`) modeled on real MITRE ATT&CK /
   NVD entities (APT28, APT29 and their associated malware, techniques, and CVEs), plus
   five short CTI report fixtures — enough to demonstrate genuine multi-hop reasoning
   that pure text retrieval cannot do (see "Why GraphRAG wins" below).
+
+### Setting up the local LLM (Ollama)
+
+```bash
+# 1. Install Ollama: https://ollama.com/download
+# 2. Pull a model (llama3.2 is the default; any Ollama model works)
+ollama pull llama3.2
+# 3. Start the server (often already running as a background service)
+ollama serve &
+```
+
+That's it — `LLM_PROVIDER=ollama` and `LLM_MODEL=llama3.2` are the defaults, so
+`python scripts/ask.py "..."` and the dashboard will use it automatically.
+
+### Zero-setup fallback
+
+If Ollama isn't running, or `sentence-transformers` isn't installed / can't reach
+HuggingFace to download its model, the system **automatically and silently falls back**
+to a dependency-free deterministic `TemplateLLM` and hashed bag-of-words embedder
+respectively (with a one-line warning), so it still runs end to end with nothing
+installed at all. This is also what the test suite pins to, for fast, fully
+reproducible, network-independent tests.
 
 This means every code path — ingestion, graph traversal, hybrid retrieval, the
 agentic planner, verification, evaluation, ablation, and the API — is exercised by the
@@ -110,7 +133,7 @@ src/cti_graphrag/
   rag/              NaiveRAG, HybridRAG, GraphRAGSystem, AgenticGraphRAG
   evaluation/       eval dataset, metrics, run_evaluation, ablation, error_analysis
   api/              FastAPI backend
-  llm.py            TemplateLLM / AnthropicLLM / OpenAILLM
+  llm.py            OllamaLLM (default, local) / TemplateLLM (fallback) / AnthropicLLM / OpenAILLM
   embeddings.py     HashingEmbedder / SentenceTransformerEmbedder
   corpus.py         builds the shared graph + indices used by every system
 data/
@@ -158,14 +181,20 @@ all optional:
 
 | Variable | Default | Notes |
 |---|---|---|
-| `LLM_PROVIDER` | `template` | `template` \| `anthropic` \| `openai` |
-| `LLM_MODEL` | `claude-sonnet-5` | model id passed to the chosen provider |
-| `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` | — | required only for the respective provider |
-| `EMBEDDING_BACKEND` | `hashing` | `hashing` \| `sentence-transformers` |
+| `LLM_PROVIDER` | `ollama` | `ollama` \| `template` \| `anthropic` \| `openai` |
+| `LLM_MODEL` | `llama3.2` | Ollama model tag (or Anthropic/OpenAI model id if using those providers) |
+| `OLLAMA_HOST` | `http://localhost:11434` | where the local Ollama server is listening |
+| `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` | — | required only for those (non-local) providers |
+| `EMBEDDING_BACKEND` | `sentence-transformers` | `sentence-transformers` \| `hashing` |
+| `EMBEDDING_MODEL` | `all-MiniLM-L6-v2` | any local sentence-transformers model name |
 | `GRAPH_BACKEND` | `memory` | `memory` \| `neo4j` |
 | `NEO4J_URI` / `NEO4J_USER` / `NEO4J_PASSWORD` | `bolt://localhost:7687` / `neo4j` / `password` | used when `GRAPH_BACKEND=neo4j`; see `docker-compose.yml` |
 | `RETRIEVAL_TOP_K` | `5` | final evidence chunks returned per query |
 | `MAX_GRAPH_HOPS` | `3` | default multi-hop traversal depth |
+
+Both `ollama` and `sentence-transformers` fall back automatically (with a warning) to
+`TemplateLLM`/`HashingEmbedder` if the local server/model isn't available, so the
+defaults are always safe to leave as-is even without Ollama installed.
 
 To use real MITRE ATT&CK data instead of the sample bundle:
 
@@ -202,25 +231,29 @@ insufficient evidence, incorrect citation, reasoning failure).
 
 ### A note on the numbers you'll see
 
-With the default `TemplateLLM` (no API key), exact-match/F1 against the hand-written
-gold answers will look low — the template stitches together evidence rather than
-paraphrasing it into the gold phrasing. **`semantic_similarity`, `entity_coverage`,
-and the number of graph paths surfaced are the metrics that isolate retrieval quality**
-from generation style, and those show the expected ordering
-(GraphRAG/Agentic > Hybrid > Naive). Point `LLM_PROVIDER=anthropic` at a real model to
-see F1 rise across the board without changing the retrieval story.
+The evaluation/ablation/error-analysis scripts (and the pytest suite) pin
+`TemplateLLM` + the hashing embedder for speed and full reproducibility. Against
+those hand-written gold answers, exact-match/F1 will look low — the template
+stitches together evidence rather than paraphrasing it into the gold phrasing.
+**`semantic_similarity`, `entity_coverage`, and the number of graph paths surfaced
+are the metrics that isolate retrieval quality** from generation style, and those
+show the expected ordering (GraphRAG/Agentic > Hybrid > Naive) regardless of which
+LLM is generating the prose. Point the evaluation scripts at a real local Ollama
+model (it's the runtime default; the eval scripts just don't force it) to see F1
+rise across the board without changing the retrieval story.
 
-## Extending to production
+## Swapping components
 
-- **Neo4j**: `docker compose up -d`, then `GRAPH_BACKEND=neo4j` — `Neo4jGraphStore`
-  implements the exact same interface as the in-memory store (including multi-hop
-  `traverse()` and `shortest_path()`), so nothing else changes.
-- **Real embeddings**: install `sentence-transformers` and set
-  `EMBEDDING_BACKEND=sentence-transformers`.
-- **Real LLM**: set `LLM_PROVIDER=anthropic` (or `openai`) and the corresponding API key.
+- **A different local model**: `ollama pull <model>` then `LLM_MODEL=<model>` — no
+  code changes. Any Ollama-supported model works (Llama, Mistral, Qwen, Gemma, ...).
+- **Cloud LLM instead of local**: set `LLM_PROVIDER=anthropic` (or `openai`) and the
+  corresponding API key.
+- **Neo4j** instead of the in-memory graph: `docker compose up -d`, then
+  `GRAPH_BACKEND=neo4j` — `Neo4jGraphStore` implements the exact same interface
+  (including multi-hop `traverse()` and `shortest_path()`), so nothing else changes.
 - **LLM-based planner**: `agents/planner.py` documents exactly the `plan(question,
-  corpus) -> Plan` signature to implement if you want a ReAct-style planner instead of
-  the current rule-based one — everything downstream (`agents/tools.py`,
-  `AgenticGraphRAG`) is planner-agnostic.
+  corpus) -> Plan` signature to implement if you want a ReAct-style planner (e.g.
+  driven by the same local Ollama model) instead of the current rule-based one —
+  everything downstream (`agents/tools.py`, `AgenticGraphRAG`) is planner-agnostic.
 - **Larger corpora**: `ingestion/mitre_attack.py` and `ingestion/nvd_cve.py` both expose
   live-fetch functions for the full ATT&CK STIX bundle and specific NVD CVE records.

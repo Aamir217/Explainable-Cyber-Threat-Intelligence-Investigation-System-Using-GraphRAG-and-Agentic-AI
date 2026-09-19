@@ -63,23 +63,49 @@ class HashingEmbedder(Embedder):
 
 
 class SentenceTransformerEmbedder(Embedder):
-    """Wraps a real sentence-transformers model (optional dependency)."""
+    """Wraps a real, locally-run sentence-transformers model.
 
-    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+    The model is downloaded once from HuggingFace Hub on first use (a few
+    tens of MB for the default ``all-MiniLM-L6-v2``) and cached locally
+    (``~/.cache/huggingface``); every call after that runs fully offline on
+    CPU. This is what gives the system genuine semantic similarity instead
+    of the lexical hashing embedder's bag-of-words approximation.
+    """
+
+    def __init__(self, model_name: str | None = None):
         from sentence_transformers import SentenceTransformer
 
-        self._model = SentenceTransformer(model_name)
+        from cti_graphrag.config import settings
+
+        self._model = SentenceTransformer(model_name or settings.embedding_model)
         self.dim = self._model.get_sentence_embedding_dimension()
 
     def embed(self, texts: list[str]) -> np.ndarray:
         return np.asarray(self._model.encode(texts, normalize_embeddings=True))
 
 
-def get_embedder(backend: str = "hashing", **kwargs) -> Embedder:
+def get_embedder(backend: str = "sentence-transformers", **kwargs) -> Embedder:
+    """Build the configured embedder, falling back to the offline hashing
+    embedder if ``sentence-transformers`` (or its model weights) can't be
+    loaded -- e.g. the package isn't installed, or there's no network access
+    on first run to fetch the model.
+    """
     if backend == "hashing":
         return HashingEmbedder(**kwargs)
     if backend == "sentence-transformers":
-        return SentenceTransformerEmbedder(**kwargs)
+        try:
+            return SentenceTransformerEmbedder(**kwargs)
+        except Exception as exc:  # noqa: BLE001 - deliberately broad: any load failure should fall back, not crash
+            import warnings
+
+            warnings.warn(
+                f"Could not load sentence-transformers embedder ({exc!r}); "
+                "falling back to the offline hashing embedder. Install "
+                "'sentence-transformers' and ensure network access on first "
+                "run to use real local embeddings.",
+                stacklevel=2,
+            )
+            return HashingEmbedder()
     raise ValueError(f"Unknown embedding backend: {backend}")
 
 

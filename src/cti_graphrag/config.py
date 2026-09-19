@@ -8,14 +8,22 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Settings:
-    # LLM
-    llm_provider: str = os.getenv("LLM_PROVIDER", "template")  # "anthropic" | "openai" | "template"
-    llm_model: str = os.getenv("LLM_MODEL", "claude-sonnet-5")
+    # LLM -- defaults to a local Ollama server (no API key, no cloud calls).
+    # Falls back to the deterministic TemplateLLM automatically if Ollama
+    # isn't reachable (see llm.get_llm()), so the system still runs with
+    # zero setup; install Ollama + `ollama pull <model>` to use a real model.
+    llm_provider: str = os.getenv("LLM_PROVIDER", "ollama")  # "ollama" | "anthropic" | "openai" | "template"
+    llm_model: str = os.getenv("LLM_MODEL", "llama3.2")
+    ollama_host: str = os.getenv("OLLAMA_HOST", "http://localhost:11434")
     anthropic_api_key: str | None = os.getenv("ANTHROPIC_API_KEY")
     openai_api_key: str | None = os.getenv("OPENAI_API_KEY")
 
-    # Embeddings
-    embedding_backend: str = os.getenv("EMBEDDING_BACKEND", "hashing")  # "hashing" | "sentence-transformers"
+    # Embeddings -- defaults to a local sentence-transformers model (real
+    # semantic similarity, downloaded once from HuggingFace then fully
+    # offline). Falls back to the dependency-free hashing embedder
+    # automatically if the package isn't installed (see embeddings.get_embedder()).
+    embedding_backend: str = os.getenv("EMBEDDING_BACKEND", "sentence-transformers")  # "sentence-transformers" | "hashing"
+    embedding_model: str = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
 
     # Graph store
     graph_backend: str = os.getenv("GRAPH_BACKEND", "memory")  # "memory" | "neo4j"

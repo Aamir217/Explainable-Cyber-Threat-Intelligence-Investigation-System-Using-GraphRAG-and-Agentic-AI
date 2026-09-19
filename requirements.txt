@@ -8,11 +8,17 @@ pydantic>=2.6
 fastapi>=0.110
 uvicorn[standard]>=0.29
 
-# Optional integrations (guarded by try/except in code; safe to leave uninstalled)
+# Local models (defaults): sentence-transformers for embeddings (CPU-only
+# torch is fine); the LLM itself runs via a separate local Ollama server
+# (https://ollama.com) reached over plain HTTP, so no LLM package is needed
+# here. Both are guarded by try/except with automatic fallback in code, so
+# the app still runs (with reduced quality) if this is left uninstalled.
+sentence-transformers>=2.6
+
+# Optional cloud integrations (guarded by try/except in code; safe to leave uninstalled)
 neo4j>=5.19
 anthropic>=0.34
 openai>=1.30
-sentence-transformers>=2.6
 
 # Dev / test
 pytest>=8.0

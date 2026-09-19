@@ -1,12 +1,16 @@
 """LLM abstraction used for final answer generation.
 
-Three interchangeable providers:
+Four interchangeable providers:
 
-* ``TemplateLLM`` (default, zero-dependency, zero-cost) -- deterministically
-  synthesizes an answer by extracting and stitching together the graph
-  reasoning paths and document evidence passed in the prompt. This keeps the
-  whole system runnable and testable without any API key, and makes answers
-  fully reproducible for evaluation.
+* ``OllamaLLM`` (default) -- calls a locally-running Ollama server
+  (https://ollama.com) over its REST API. No API key, no cloud calls: install
+  Ollama, run ``ollama pull llama3.2`` (or any other model) and ``ollama
+  serve``, and the system uses it automatically.
+* ``TemplateLLM`` (automatic fallback) -- deterministically synthesizes an
+  answer by extracting and stitching together the graph reasoning paths and
+  document evidence passed in the prompt. Used automatically when Ollama
+  isn't reachable, so the system still runs with zero setup, and used
+  explicitly in tests/evaluation for fully reproducible output.
 * ``AnthropicLLM`` -- calls the Anthropic Messages API (requires
   ``ANTHROPIC_API_KEY`` and the optional ``anthropic`` package).
 * ``OpenAILLM`` -- calls the OpenAI Chat Completions API (requires
@@ -17,7 +21,10 @@ Selection is driven by ``config.settings.llm_provider``.
 
 from __future__ import annotations
 
+import json
 import re
+import urllib.error
+import urllib.request
 from abc import ABC, abstractmethod
 
 from cti_graphrag.config import settings
@@ -26,6 +33,50 @@ from cti_graphrag.config import settings
 class LLM(ABC):
     @abstractmethod
     def generate(self, system: str, user: str) -> str: ...
+
+
+class OllamaLLM(LLM):
+    """Calls a local Ollama server's chat API (no cloud, no API key)."""
+
+    def __init__(self, model: str | None = None, host: str | None = None, timeout: float = 120.0):
+        self._model = model or settings.llm_model
+        self._host = (host or settings.ollama_host).rstrip("/")
+        self._timeout = timeout
+
+    def generate(self, system: str, user: str) -> str:
+        payload = {
+            "model": self._model,
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": user},
+            ],
+            "stream": False,
+        }
+        request = urllib.request.Request(
+            f"{self._host}/api/chat",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=self._timeout) as response:  # noqa: S310
+                data = json.loads(response.read().decode("utf-8"))
+        except (urllib.error.URLError, TimeoutError) as exc:
+            raise ConnectionError(
+                f"Could not reach Ollama at {self._host} ({exc}). Is `ollama serve` running "
+                f"and has the model been pulled (`ollama pull {self._model}`)?"
+            ) from exc
+        return data.get("message", {}).get("content", "")
+
+
+def is_ollama_available(host: str | None = None, timeout: float = 1.5) -> bool:
+    """Quick reachability check used by ``get_llm()`` to decide whether to fall back."""
+    host = (host or settings.ollama_host).rstrip("/")
+    try:
+        with urllib.request.urlopen(f"{host}/api/tags", timeout=timeout):  # noqa: S310
+            return True
+    except Exception:  # noqa: BLE001 - any failure means "not available", not a crash
+        return False
 
 
 class AnthropicLLM(LLM):
@@ -126,4 +177,20 @@ def get_llm() -> LLM:
         return AnthropicLLM()
     if settings.llm_provider == "openai":
         return OpenAILLM()
+    if settings.llm_provider == "template":
+        return TemplateLLM()
+
+    # Default: "ollama". Fall back to the deterministic template automatically
+    # if no local server is reachable, so the system still runs out of the box.
+    if is_ollama_available():
+        return OllamaLLM()
+
+    import warnings
+
+    warnings.warn(
+        f"LLM_PROVIDER=ollama but no server was reachable at {settings.ollama_host}; "
+        "falling back to the deterministic TemplateLLM. Install Ollama, run "
+        f"`ollama pull {settings.llm_model}` and `ollama serve` to use a real local model.",
+        stacklevel=2,
+    )
     return TemplateLLM()

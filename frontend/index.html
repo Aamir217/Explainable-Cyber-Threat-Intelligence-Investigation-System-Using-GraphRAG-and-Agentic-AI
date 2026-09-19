@@ -67,9 +67,6 @@
   .examples { margin-top: 8px; font-size: 12px; color: var(--muted); }
   .examples span { cursor: pointer; text-decoration: underline; margin-right: 12px; }
 
-  .grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; margin-top: 18px; }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-
   .card {
     background: var(--panel); border: 1px solid var(--panel-border);
     border-radius: 12px; padding: 16px;
@@ -497,30 +494,28 @@ function renderResultCard(result, { compact } = {}) {
     ? result.metadata.faithfulness : null;
 
   return `
-    <div class="grid">
-      <div class="card">
-        <h2>Answer${compact ? "" : ""}</h2>
-        <div class="answer-text">${escapeHtml(result.answer)}</div>
-        <div class="meta-row">
-          <span><b>${result.system}</b></span>
-          <span>Latency: <b>${(result.latency_seconds * 1000).toFixed(1)} ms</b></span>
-          <span>Graph paths: <b>${result.graph_paths.length}</b></span>
-          <span>Citations: <b>${result.citations.length}</b></span>
-        </div>
-        <div class="meta-row">${result.tool_calls.map(t => `<span class="tool-chip">${escapeHtml(t)}</span>`).join("")}</div>
-        ${faithfulness !== null ? `
-          <div class="meta-row" style="display:block;">
-            <span>Faithfulness (verified claim ratio): <b>${(faithfulness*100).toFixed(0)}%</b></span>
-            <div class="faithfulness-bar"><div style="width:${(faithfulness*100).toFixed(0)}%"></div></div>
-          </div>` : ""}
+    <div class="card" style="margin-top:18px;">
+      <h2>Knowledge Graph Reasoning Path</h2>
+      <div class="graph-toolbar" id="graph-toolbar"></div>
+      <div id="graph-diagram" class="graph-diagram-wrap"></div>
+      <div id="graph-list" style="display:none;">${renderGraphPaths(result.graph_paths)}</div>
+      <div class="graph-legend" id="graph-legend"></div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <h2>Answer${compact ? "" : ""}</h2>
+      <div class="answer-text">${escapeHtml(result.answer)}</div>
+      <div class="meta-row">
+        <span><b>${result.system}</b></span>
+        <span>Latency: <b>${(result.latency_seconds * 1000).toFixed(1)} ms</b></span>
+        <span>Graph paths: <b>${result.graph_paths.length}</b></span>
+        <span>Citations: <b>${result.citations.length}</b></span>
       </div>
-      <div class="card">
-        <h2>Knowledge Graph Reasoning Path</h2>
-        <div class="graph-toolbar" id="graph-toolbar"></div>
-        <div id="graph-diagram" class="graph-diagram-wrap"></div>
-        <div id="graph-list" style="display:none;">${renderGraphPaths(result.graph_paths)}</div>
-        <div class="graph-legend" id="graph-legend"></div>
-      </div>
+      <div class="meta-row">${result.tool_calls.map(t => `<span class="tool-chip">${escapeHtml(t)}</span>`).join("")}</div>
+      ${faithfulness !== null ? `
+        <div class="meta-row" style="display:block;">
+          <span>Faithfulness (verified claim ratio): <b>${(faithfulness*100).toFixed(0)}%</b></span>
+          <div class="faithfulness-bar"><div style="width:${(faithfulness*100).toFixed(0)}%"></div></div>
+        </div>` : ""}
     </div>
     <div class="card" style="margin-top:14px;">
       <h2>Evidence</h2>

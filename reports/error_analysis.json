@@ -1,0 +1,713 @@
+{
+  "incorrect_answers": [
+    {
+      "question_id": "Q1",
+      "category": "single-hop",
+      "system": "naive_rag",
+      "f1": 0.06862745098039215,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q1",
+      "category": "single-hop",
+      "system": "hybrid_rag",
+      "f1": 0.06862745098039215,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q1",
+      "category": "single-hop",
+      "system": "graph_rag",
+      "f1": 0.072,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> Spearphishing Attachment --BELONGS_TO--> Initial Access <--BELONGS_TO-- Phishing. Initial Access <--BELONGS_TO-- Phishing. Initial Access <--BELONGS_TO-- Spearphishing Attachment. Initial Access <--BELONGS_TO-- Phishing <--SUBTECHNIQUE_OF-- Spearphishing Attachment. Initial Access <--BELONGS_TO-- Spearphishing Attachment --SUBTECHNIQUE_OF--> Phishing. Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q1",
+      "category": "single-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.072,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: Initial Access <--BELONGS_TO-- Phishing. Initial Access <--BELONGS_TO-- Spearphishing Attachment. APT28 --USES--> Spearphishing Attachment. APT28 --USES--> X-Agent. APT28 --USES--> Zebrocy. APT28 --USES--> Cobalt Strike. APT28 --TARGETS--> Government. APT28 --TARGETS--> Defense Contractors. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q2",
+      "category": "single-hop",
+      "system": "naive_rag",
+      "f1": 0.05426356589147286,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0]"
+    },
+    {
+      "question_id": "Q2",
+      "category": "single-hop",
+      "system": "hybrid_rag",
+      "f1": 0.05426356589147286,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0]"
+    },
+    {
+      "question_id": "Q2",
+      "category": "single-hop",
+      "system": "graph_rag",
+      "f1": 0.05921052631578948,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --USES--> Spearphishing Attachment --BELONGS_TO--> Initial Access <--BELONGS_TO-- Phishing. Initial Access <--BELONGS_TO-- Phishing. Initial Access <--BELONGS_TO-- Spearphishing Attachment. Initial Access <--BELONGS_TO-- Phishing <--SUBTECHNIQUE_OF-- Spearphishing Attachment. Initial Access <--BELONGS_TO-- Spearphishing Attachment --SUBTECHNIQUE_OF--> Phishing. Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0]"
+    },
+    {
+      "question_id": "Q2",
+      "category": "single-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.06060606060606061,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: Initial Access <--BELONGS_TO-- Phishing. Initial Access <--BELONGS_TO-- Spearphishing Attachment. APT29 --USES--> Spearphishing Attachment. APT29 --USES--> WellMess. APT29 --USES--> Cobalt Strike. APT29 --TARGETS--> Government. APT29 --TARGETS--> Healthcare. APT29 <--ATTRIBUTED_TO-- Operation Ghost. Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0]"
+    },
+    {
+      "question_id": "Q3",
+      "category": "single-hop",
+      "system": "naive_rag",
+      "f1": 0.053475935828877,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q3",
+      "category": "single-hop",
+      "system": "hybrid_rag",
+      "f1": 0.053475935828877,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q3",
+      "category": "single-hop",
+      "system": "graph_rag",
+      "f1": 0.06249999999999999,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --TARGETS--> Government. APT28 --TARGETS--> Defense Contractors. APT28 --USES--> Cobalt Strike <--USES-- APT29 --TARGETS--> Government. APT28 --USES--> Cobalt Strike <--USES-- APT29 --TARGETS--> Healthcare. APT28 --USES--> Spearphishing Attachment <--USES-- APT29 --TARGETS--> Government. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q3",
+      "category": "single-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.06306306306306306,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --TARGETS--> Government. APT28 --TARGETS--> Defense Contractors. APT28 --USES--> X-Agent. APT28 --USES--> Zebrocy. APT28 --USES--> Cobalt Strike. APT28 --USES--> Spearphishing Attachment. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q4",
+      "category": "single-hop",
+      "system": "naive_rag",
+      "f1": 0.05172413793103449,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q4",
+      "category": "single-hop",
+      "system": "hybrid_rag",
+      "f1": 0.05172413793103449,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q4",
+      "category": "single-hop",
+      "system": "graph_rag",
+      "f1": 0.0446096654275093,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --TARGETS--> Government. APT29 --TARGETS--> Healthcare. APT29 --USES--> Cobalt Strike <--USES-- APT28 --TARGETS--> Government. APT29 --USES--> Cobalt Strike <--USES-- APT28 --TARGETS--> Defense Contractors. APT29 --USES--> Spearphishing Attachment <--USES-- APT28 --TARGETS--> Government. Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q4",
+      "category": "single-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.046153846153846156,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --TARGETS--> Government. APT29 --TARGETS--> Healthcare. APT29 --USES--> WellMess. APT29 --USES--> Cobalt Strike. APT29 --USES--> Spearphishing Attachment. APT29 <--ATTRIBUTED_TO-- Operation Ghost. Supporting reporting indicates: Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. Both APT28 and APT29 have been separately observed leveraging spearphishing attachments (T1566.001) as an initial access technique, underscoring the continued effectiveness of phishing-based intrusion against both healthcare and government sector targets. [RPT-002::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q5",
+      "category": "two-hop",
+      "system": "naive_rag",
+      "f1": 0.0748663101604278,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1]"
+    },
+    {
+      "question_id": "Q5",
+      "category": "two-hop",
+      "system": "hybrid_rag",
+      "f1": 0.058333333333333334,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] Researchers observed the threat actor APT28 (also tracked as Fancy Bear or Sofacy) conducting a spearphishing campaign against government and defense-sector targets in early 2020. The initial access vector relied on spearphishing attachments (MITRE ATT&CK T1566.001) delivering the Zebrocy malware family. Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. [RPT-001::chunk0]"
+    },
+    {
+      "question_id": "Q5",
+      "category": "two-hop",
+      "system": "graph_rag",
+      "f1": 0.07305936073059362,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> X-Agent. APT28 --USES--> Zebrocy. APT28 --USES--> Cobalt Strike. APT28 --USES--> Spearphishing Attachment <--USES-- Zebrocy. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk1]"
+    },
+    {
+      "question_id": "Q5",
+      "category": "two-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.05333333333333332,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> X-Agent. APT28 --USES--> Zebrocy. APT28 --USES--> Cobalt Strike. APT28 --USES--> Spearphishing Attachment <--USES-- Zebrocy. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> X-Agent. APT28 --USES--> Spearphishing Attachment. APT28 --TARGETS--> Government. APT28 --TARGETS--> Defense Contractors. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] Researchers observed the threat actor APT28 (also tracked as Fancy Bear or Sofacy) conducting a spearphishing campaign against government and defense-sector targets in early 2020. The initial access vector relied on spearphishing attachments (MITRE ATT&CK T1566.001) delivering the Zebrocy malware family. Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. [RPT-001::chunk0]"
+    },
+    {
+      "question_id": "Q6",
+      "category": "two-hop",
+      "system": "naive_rag",
+      "f1": 0.0423728813559322,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q6",
+      "category": "two-hop",
+      "system": "hybrid_rag",
+      "f1": 0.0423728813559322,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q6",
+      "category": "two-hop",
+      "system": "graph_rag",
+      "f1": 0.04411764705882353,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --USES--> WellMess. APT29 --USES--> Cobalt Strike. APT29 --USES--> Spearphishing Attachment <--USES-- Zebrocy. APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess. APT29 --USES--> WellMess --USES--> Application Layer Protocol <--USES-- X-Agent. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q6",
+      "category": "two-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.0410958904109589,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --USES--> WellMess. APT29 --USES--> Cobalt Strike. APT29 --USES--> Spearphishing Attachment <--USES-- Zebrocy. APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess. APT29 --USES--> Spearphishing Attachment. APT29 --TARGETS--> Government. APT29 --TARGETS--> Healthcare. APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT29 --USES--> WellMess --USES--> Application Layer Protocol. APT29 --USES--> WellMess --USES--> Command and Scripting Interpreter. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q7",
+      "category": "two-hop",
+      "system": "naive_rag",
+      "f1": 0.05194805194805195,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q7",
+      "category": "two-hop",
+      "system": "hybrid_rag",
+      "f1": 0.046153846153846156,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0]"
+    },
+    {
+      "question_id": "Q7",
+      "category": "two-hop",
+      "system": "graph_rag",
+      "f1": 0.04240282685512367,
+      "error_categories": [
+        "entity_recognition_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT29 --USES--> Cobalt Strike <--USES-- APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. APT29 --USES--> Spearphishing Attachment <--USES-- APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. APT29 --TARGETS--> Government <--TARGETS-- APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. APT29 --USES--> WellMess <--USES-- Operation Ghost. Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q7",
+      "category": "two-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.04166666666666667,
+      "error_categories": [
+        "entity_recognition_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT29 --USES--> WellMess. APT29 --USES--> Cobalt Strike. APT29 --USES--> Spearphishing Attachment. APT29 --TARGETS--> Government. APT29 --TARGETS--> Healthcare. Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0]"
+    },
+    {
+      "question_id": "Q8",
+      "category": "two-hop",
+      "system": "naive_rag",
+      "f1": 0.054421768707483,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. APT28 has historically also relied on the X-Agent implant as part of the same intrusion set (tracked internally as \"Sofacy 2020 Intrusion Set\"), using command-and-scripting-interpreter techniques (T1059) and application layer protocols (T1071) for command and control communications. Organizations running Microsoft Exchange Server are strongly advised to apply the relevant security updates and to provide user training against phishing (MITRE mitigation M1017) as a primary defense against this activity. [RPT-001::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q8",
+      "category": "two-hop",
+      "system": "hybrid_rag",
+      "f1": 0.06015037593984962,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Researchers observed the threat actor APT28 (also tracked as Fancy Bear or Sofacy) conducting a spearphishing campaign against government and defense-sector targets in early 2020. The initial access vector relied on spearphishing attachments (MITRE ATT&CK T1566.001) delivering the Zebrocy malware family. Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. [RPT-001::chunk0]"
+    },
+    {
+      "question_id": "Q8",
+      "category": "two-hop",
+      "system": "graph_rag",
+      "f1": 0.046376811594202906,
+      "error_categories": [
+        "entity_recognition_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. APT28 --USES--> Cobalt Strike <--USES-- APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT28 --USES--> Spearphishing Attachment <--USES-- APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT28 --TARGETS--> Government <--TARGETS-- APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT28 --USES--> X-Agent <--USES-- Sofacy 2020 Intrusion Set. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. APT28 has historically also relied on the X-Agent implant as part of the same intrusion set (tracked internally as \"Sofacy 2020 Intrusion Set\"), using command-and-scripting-interpreter techniques (T1059) and application layer protocols (T1071) for command and control communications. Organizations running Microsoft Exchange Server are strongly advised to apply the relevant security updates and to provide user training against phishing (MITRE mitigation M1017) as a primary defense against this activity. [RPT-001::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q8",
+      "category": "two-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.053156146179401995,
+      "error_categories": [
+        "entity_recognition_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. APT28 --USES--> X-Agent. APT28 --USES--> Zebrocy. APT28 --USES--> Cobalt Strike. APT28 --USES--> Spearphishing Attachment. APT28 --TARGETS--> Government. APT28 --TARGETS--> Defense Contractors. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Researchers observed the threat actor APT28 (also tracked as Fancy Bear or Sofacy) conducting a spearphishing campaign against government and defense-sector targets in early 2020. The initial access vector relied on spearphishing attachments (MITRE ATT&CK T1566.001) delivering the Zebrocy malware family. Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. [RPT-001::chunk0]"
+    },
+    {
+      "question_id": "Q9",
+      "category": "three-hop",
+      "system": "naive_rag",
+      "f1": 0.16143497757847536,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q9",
+      "category": "three-hop",
+      "system": "hybrid_rag",
+      "f1": 0.16143497757847536,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q9",
+      "category": "three-hop",
+      "system": "graph_rag",
+      "f1": 0.16666666666666666,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> Spearphishing Attachment. APT28 --USES--> X-Agent --USES--> Command and Scripting Interpreter. APT28 --USES--> X-Agent --USES--> Application Layer Protocol. APT28 --USES--> Zebrocy --USES--> Spearphishing Attachment. APT28 --USES--> Zebrocy --USES--> Exploitation of Remote Services. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q9",
+      "category": "three-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.1437908496732026,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> Spearphishing Attachment. APT28 --USES--> X-Agent --USES--> Command and Scripting Interpreter. APT28 --USES--> X-Agent --USES--> Application Layer Protocol. APT28 --USES--> Zebrocy --USES--> Spearphishing Attachment. APT28 --USES--> Zebrocy --USES--> Exploitation of Remote Services. APT28 --USES--> Cobalt Strike --USES--> Application Layer Protocol. APT28 --USES--> Cobalt Strike --USES--> Command and Scripting Interpreter. APT28 --USES--> Spearphishing Attachment --SUBTECHNIQUE_OF--> Phishing. APT28 --USES--> Zebrocy --USES--> Spearphishing Attachment --SUBTECHNIQUE_OF--> Phishing. APT28 --USES--> Cobalt Strike <--USES-- APT29 --USES--> Spearphishing Attachment. Supporting reporting indicates: X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q10",
+      "category": "three-hop",
+      "system": "naive_rag",
+      "f1": 0.11214953271028036,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q10",
+      "category": "three-hop",
+      "system": "hybrid_rag",
+      "f1": 0.11981566820276497,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q10",
+      "category": "three-hop",
+      "system": "graph_rag",
+      "f1": 0.109375,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --USES--> Spearphishing Attachment. APT29 --USES--> WellMess --USES--> Application Layer Protocol. APT29 --USES--> WellMess --USES--> Command and Scripting Interpreter. APT29 --USES--> Cobalt Strike --USES--> Application Layer Protocol. APT29 --USES--> Cobalt Strike --USES--> Command and Scripting Interpreter. Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q10",
+      "category": "three-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.09180327868852459,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --USES--> Spearphishing Attachment. APT29 --USES--> WellMess --USES--> Application Layer Protocol. APT29 --USES--> WellMess --USES--> Command and Scripting Interpreter. APT29 --USES--> Cobalt Strike --USES--> Application Layer Protocol. APT29 --USES--> Cobalt Strike --USES--> Command and Scripting Interpreter. APT29 --USES--> Spearphishing Attachment --SUBTECHNIQUE_OF--> Phishing. APT29 --USES--> Cobalt Strike <--USES-- APT28 --USES--> Spearphishing Attachment. APT29 --USES--> Spearphishing Attachment --BELONGS_TO--> Initial Access <--BELONGS_TO-- Phishing. APT29 --USES--> Spearphishing Attachment <--USES-- Zebrocy --USES--> Exploitation of Remote Services. APT29 --TARGETS--> Government <--TARGETS-- APT28 --USES--> Spearphishing Attachment. Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0]"
+    },
+    {
+      "question_id": "Q11",
+      "category": "three-hop",
+      "system": "naive_rag",
+      "f1": 0.06763285024154589,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q11",
+      "category": "three-hop",
+      "system": "hybrid_rag",
+      "f1": 0.06763285024154589,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q11",
+      "category": "three-hop",
+      "system": "graph_rag",
+      "f1": 0.06274509803921569,
+      "error_categories": [
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. APT28 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT28 --USES--> Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. APT28 --USES--> X-Agent. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q11",
+      "category": "three-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.04692082111436951,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. APT28 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT28 --USES--> Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. APT28 --USES--> X-Agent --USES--> Command and Scripting Interpreter <--USES-- WellMess --EXPLOITS--> CVE-2021-26855. APT28 --USES--> X-Agent --USES--> Command and Scripting Interpreter <--USES-- Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT28 --USES--> X-Agent --USES--> Application Layer Protocol <--USES-- WellMess --EXPLOITS--> CVE-2021-26855. APT28 --USES--> X-Agent --USES--> Application Layer Protocol <--USES-- Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT28 --USES--> X-Agent <--USES-- Sofacy 2020 Intrusion Set --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. APT28 --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688 --AFFECTS--> Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q12",
+      "category": "three-hop",
+      "system": "naive_rag",
+      "f1": 0.1345291479820628,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q12",
+      "category": "three-hop",
+      "system": "hybrid_rag",
+      "f1": 0.1345291479820628,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q12",
+      "category": "three-hop",
+      "system": "graph_rag",
+      "f1": 0.13432835820895522,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --USES--> WellMess --EXPLOITS--> CVE-2021-26855. APT29 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT29 --USES--> Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess --EXPLOITS--> CVE-2021-26855. APT29 --USES--> WellMess. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q12",
+      "category": "three-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.10227272727272728,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 --USES--> WellMess --EXPLOITS--> CVE-2021-26855. APT29 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT29 --USES--> Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess --EXPLOITS--> CVE-2021-26855. APT29 --USES--> WellMess --USES--> Application Layer Protocol <--USES-- Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT29 --USES--> WellMess --USES--> Command and Scripting Interpreter <--USES-- Cobalt Strike --EXPLOITS--> CVE-2020-4006. APT29 --USES--> WellMess --EXPLOITS--> CVE-2021-26855 --AFFECTS--> Microsoft Exchange Server <--AFFECTS-- CVE-2020-0688. APT29 --USES--> WellMess --EXPLOITS--> CVE-2021-26855 <--MITIGATES-- Update Software --MITIGATES--> CVE-2020-0688. APT29 --USES--> Cobalt Strike --USES--> Application Layer Protocol <--USES-- WellMess --EXPLOITS--> CVE-2021-26855. APT29 --USES--> Cobalt Strike --USES--> Command and Scripting Interpreter <--USES-- WellMess --EXPLOITS--> CVE-2021-26855. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q13",
+      "category": "multi-hop",
+      "system": "naive_rag",
+      "f1": 0.16309012875536483,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q13",
+      "category": "multi-hop",
+      "system": "hybrid_rag",
+      "f1": 0.16309012875536483,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q13",
+      "category": "multi-hop",
+      "system": "graph_rag",
+      "f1": 0.1660899653979239,
+      "error_categories": [
+        "entity_recognition_failure"
+      ],
+      "answer": "Based on verified knowledge graph relationships: Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. Spearphishing Attachment <--USES-- APT28 --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. Spearphishing Attachment <--USES-- APT28 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. Spearphishing Attachment <--USES-- APT29 --USES--> WellMess --EXPLOITS--> CVE-2021-26855. Spearphishing Attachment <--USES-- APT29 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q13",
+      "category": "multi-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.13296398891966757,
+      "error_categories": [
+        "entity_recognition_failure"
+      ],
+      "answer": "Based on verified knowledge graph relationships: Spearphishing Attachment <--USES-- APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. Spearphishing Attachment <--USES-- APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess --EXPLOITS--> CVE-2021-26855. Phishing --BELONGS_TO--> Initial Access <--BELONGS_TO-- Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. Spearphishing Attachment <--USES-- APT28 --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688. Spearphishing Attachment <--USES-- APT28 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. Spearphishing Attachment <--USES-- APT29 --USES--> WellMess --EXPLOITS--> CVE-2021-26855. Spearphishing Attachment <--USES-- APT29 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006. Phishing <--SUBTECHNIQUE_OF-- Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688. Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688 --AFFECTS--> Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855. Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0]"
+    },
+    {
+      "question_id": "Q14",
+      "category": "multi-hop",
+      "system": "naive_rag",
+      "f1": 0.17880794701986757,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. APT28 has historically also relied on the X-Agent implant as part of the same intrusion set (tracked internally as \"Sofacy 2020 Intrusion Set\"), using command-and-scripting-interpreter techniques (T1059) and application layer protocols (T1071) for command and control communications. Organizations running Microsoft Exchange Server are strongly advised to apply the relevant security updates and to provide user training against phishing (MITRE mitigation M1017) as a primary defense against this activity. [RPT-001::chunk1]"
+    },
+    {
+      "question_id": "Q14",
+      "category": "multi-hop",
+      "system": "hybrid_rag",
+      "f1": 0.19917012448132781,
+      "error_categories": [
+        "missing_graph_relationship_or_incorrect_traversal"
+      ],
+      "answer": "Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q14",
+      "category": "multi-hop",
+      "system": "graph_rag",
+      "f1": 0.14917127071823205,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: Microsoft Exchange Server <--AFFECTS-- CVE-2020-0688 <--EXPLOITS-- Zebrocy <--USES-- APT28. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess <--USES-- APT29. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess --USES--> Command and Scripting Interpreter. Microsoft Exchange Server <--AFFECTS-- CVE-2020-0688 <--EXPLOITS-- Zebrocy. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess. Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] Once deployed, Zebrocy was used to move laterally through exploitation of remote services, and in several confirmed intrusions the operators leveraged the Microsoft Exchange validation key remote code execution vulnerability (CVE-2020-0688) to gain code execution on unpatched Exchange servers. APT28 has historically also relied on the X-Agent implant as part of the same intrusion set (tracked internally as \"Sofacy 2020 Intrusion Set\"), using command-and-scripting-interpreter techniques (T1059) and application layer protocols (T1071) for command and control communications. Organizations running Microsoft Exchange Server are strongly advised to apply the relevant security updates and to provide user training against phishing (MITRE mitigation M1017) as a primary defense against this activity. [RPT-001::chunk1]"
+    },
+    {
+      "question_id": "Q14",
+      "category": "multi-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.14683544303797466,
+      "error_categories": [
+        "none"
+      ],
+      "answer": "Based on verified knowledge graph relationships: Microsoft Exchange Server <--AFFECTS-- CVE-2020-0688 <--EXPLOITS-- Zebrocy <--USES-- APT28. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess <--USES-- APT29. Microsoft Exchange Server <--AFFECTS-- CVE-2020-0688 <--EXPLOITS-- Zebrocy --USES--> Spearphishing Attachment <--USES-- APT28. Microsoft Exchange Server <--AFFECTS-- CVE-2020-0688 <--EXPLOITS-- Zebrocy --USES--> Spearphishing Attachment <--USES-- APT29. Microsoft Exchange Server <--AFFECTS-- CVE-2020-0688 <--EXPLOITS-- Zebrocy <--USES-- Sofacy 2020 Intrusion Set --ATTRIBUTED_TO--> APT28. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess <--USES-- Operation Ghost --ATTRIBUTED_TO--> APT29. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess --USES--> Command and Scripting Interpreter. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess --USES--> Application Layer Protocol --BELONGS_TO--> Command and Control. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess --USES--> Command and Scripting Interpreter --BELONGS_TO--> Execution. Microsoft Exchange Server <--AFFECTS-- CVE-2021-26855 <--EXPLOITS-- WellMess --USES--> Command and Scripting Interpreter <--USES-- X-Agent. Supporting reporting indicates: This advisory describes \"Operation Ghost\", a campaign attributed to APT29 (Cozy Bear / The Dukes / Nobelium) targeting healthcare and government entities. The group used the WellMess malware family for persistent access and data exfiltration over application-layer protocols (T1071) and scripting-based execution (T1059). Investigators identified that APT29 operators exploited the Microsoft Exchange Server Server-Side Request Forgery vulnerability, known as ProxyLogon (CVE-2021-26855), to gain an initial foothold before deploying WellMess and, in several cases, Cobalt Strike beacons for follow-on access. [RPT-002::chunk0] Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q15",
+      "category": "multi-hop",
+      "system": "naive_rag",
+      "f1": 0.13186813186813187,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "document_retrieval_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk2] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q15",
+      "category": "multi-hop",
+      "system": "hybrid_rag",
+      "f1": 0.12396694214876033,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "document_retrieval_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q15",
+      "category": "multi-hop",
+      "system": "graph_rag",
+      "f1": 0.14592274678111586,
+      "error_categories": [
+        "entity_recognition_failure",
+        "document_retrieval_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess --USES--> Application Layer Protocol. APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess --USES--> Command and Scripting Interpreter. APT29 --USES--> Spearphishing Attachment --BELONGS_TO--> Initial Access <--BELONGS_TO-- Phishing. APT29 --USES--> Spearphishing Attachment. APT29 --USES--> WellMess --USES--> Application Layer Protocol. Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk2] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q15",
+      "category": "multi-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.10179640718562874,
+      "error_categories": [
+        "entity_recognition_failure",
+        "document_retrieval_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess --USES--> Application Layer Protocol. APT29 <--ATTRIBUTED_TO-- Operation Ghost --USES--> WellMess --USES--> Command and Scripting Interpreter. APT29 --USES--> Spearphishing Attachment --BELONGS_TO--> Initial Access <--BELONGS_TO-- Phishing. APT29 --USES--> Spearphishing Attachment. APT29 --USES--> WellMess --USES--> Application Layer Protocol. APT29 --USES--> WellMess --USES--> Command and Scripting Interpreter. APT29 --USES--> Cobalt Strike --USES--> Application Layer Protocol. APT29 --USES--> Cobalt Strike --USES--> Command and Scripting Interpreter. APT29 --USES--> Spearphishing Attachment --SUBTECHNIQUE_OF--> Phishing. APT29 --USES--> Cobalt Strike <--USES-- APT28 --USES--> Spearphishing Attachment. Supporting reporting indicates: - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] A joint incident response effort identified exploitation of a command injection vulnerability in VMware Workspace ONE Access and Identity Manager (CVE-2020-4006) as the initial access vector in an intrusion later attributed with moderate confidence to APT29 infrastructure. Following exploitation, the attackers deployed Cobalt Strike beacons that communicated over application-layer protocols (T1071) and used command-and-scripting-interpreter techniques (T1059) for post-exploitation activity. This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. [RPT-003::chunk0] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q16",
+      "category": "multi-hop",
+      "system": "naive_rag",
+      "f1": 0.10989010989010989,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. Defenders are advised to prioritize patching internet-facing identity and access management infrastructure, as command-injection vulnerabilities in such systems provide a direct path to full network compromise. [RPT-003::chunk1] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q16",
+      "category": "multi-hop",
+      "system": "hybrid_rag",
+      "f1": 0.12903225806451613,
+      "error_categories": [
+        "entity_recognition_failure",
+        "missing_graph_relationship_or_incorrect_traversal",
+        "incorrect_citation"
+      ],
+      "answer": "Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    },
+    {
+      "question_id": "Q16",
+      "category": "multi-hop",
+      "system": "graph_rag",
+      "f1": 0.13445378151260504,
+      "error_categories": [
+        "entity_recognition_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688 --AFFECTS--> Microsoft Exchange Server. APT28 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006 --AFFECTS--> VMware Workspace ONE Access. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> X-Agent. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] This aligns with APT29's broader tooling preferences observed in Operation Ghost and related campaigns. Defenders are advised to prioritize patching internet-facing identity and access management infrastructure, as command-injection vulnerabilities in such systems provide a direct path to full network compromise. [RPT-003::chunk1] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1]"
+    },
+    {
+      "question_id": "Q16",
+      "category": "multi-hop",
+      "system": "agentic_graph_rag",
+      "f1": 0.0960960960960961,
+      "error_categories": [
+        "entity_recognition_failure",
+        "incorrect_citation"
+      ],
+      "answer": "Based on verified knowledge graph relationships: APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688 --AFFECTS--> Microsoft Exchange Server. APT28 --USES--> Zebrocy --EXPLOITS--> CVE-2020-0688 --AFFECTS--> Microsoft Exchange Server. APT28 --USES--> Cobalt Strike --EXPLOITS--> CVE-2020-4006 --AFFECTS--> VMware Workspace ONE Access. APT28 --USES--> Spearphishing Attachment <--USES-- Zebrocy --EXPLOITS--> CVE-2020-0688 --AFFECTS--> Microsoft Exchange Server. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> Zebrocy. APT28 <--ATTRIBUTED_TO-- Sofacy 2020 Intrusion Set --USES--> X-Agent. APT28 --USES--> Cobalt Strike <--USES-- APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT28 --USES--> Spearphishing Attachment <--USES-- APT29 <--ATTRIBUTED_TO-- Operation Ghost. APT28 --TARGETS--> Government <--TARGETS-- APT29 <--ATTRIBUTED_TO-- Operation Ghost. Supporting reporting indicates: Multiple state-sponsored threat actors, including APT28 and APT29, have been observed exploiting vulnerabilities in Microsoft Exchange Server as part of their intrusion sets. Two vulnerabilities in particular have seen widespread exploitation: - CVE-2020-0688 (validation key remote code execution), exploited by APT28's   Zebrocy malware. - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. [RPT-004::chunk0] - CVE-2021-26855 (ProxyLogon SSRF), exploited by APT29's WellMess malware. Both vulnerabilities affect Microsoft Exchange Server and allow attackers to achieve remote code execution or authentication bypass on unpatched systems. Organizations are urged to apply update software mitigations (M1051) immediately and to monitor for indicators associated with Zebrocy and WellMess activity. [RPT-004::chunk1] X-Agent is a modular implant attributed to APT28 and used across multiple intrusion sets, including the Sofacy 2020 Intrusion Set. The implant supports command execution through scripting interpreters (T1059) and communicates with command-and-control infrastructure using application layer protocols (T1071), typically HTTP or HTTPS. X-Agent has been deployed alongside other APT28 tooling such as Zebrocy and Cobalt Strike in coordinated campaigns against defense contractors, with initial access most commonly achieved via spearphishing attachments (T1566.001). [RPT-005::chunk0]"
+    }
+  ],
+  "error_category_counts_by_system": {
+    "naive_rag": {
+      "missing_graph_relationship_or_incorrect_traversal": 16,
+      "incorrect_citation": 11,
+      "entity_recognition_failure": 5,
+      "document_retrieval_failure": 1
+    },
+    "hybrid_rag": {
+      "missing_graph_relationship_or_incorrect_traversal": 16,
+      "incorrect_citation": 10,
+      "entity_recognition_failure": 5,
+      "document_retrieval_failure": 1
+    },
+    "graph_rag": {
+      "incorrect_citation": 11,
+      "none": 4,
+      "entity_recognition_failure": 5,
+      "document_retrieval_failure": 1
+    },
+    "agentic_graph_rag": {
+      "incorrect_citation": 10,
+      "none": 5,
+      "entity_recognition_failure": 5,
+      "document_retrieval_failure": 1
+    }
+  }
+}

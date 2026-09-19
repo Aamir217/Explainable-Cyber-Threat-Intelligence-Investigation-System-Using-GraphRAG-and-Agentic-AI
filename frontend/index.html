@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cyber Threat Intelligence Assistant</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --panel: #121b2e;
+    --panel-border: #223049;
+    --text: #e6edf7;
+    --muted: #93a2ba;
+    --accent: #4da3ff;
+    --accent-2: #7cf29c;
+    --danger: #ff6b6b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header h1 { font-size: 18px; margin: 0; }
+  header .badge {
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--panel-border);
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  main { max-width: 1200px; margin: 0 auto; padding: 20px 24px 60px; }
+  .query-bar {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    padding: 14px;
+    border-radius: 12px;
+  }
+  .query-bar input[type=text] {
+    flex: 1; min-width: 260px;
+    background: #0e1729; border: 1px solid var(--panel-border);
+    color: var(--text); padding: 10px 12px; border-radius: 8px; font-size: 14px;
+  }
+  select, button {
+    background: #0e1729; color: var(--text); border: 1px solid var(--panel-border);
+    padding: 10px 12px; border-radius: 8px; font-size: 14px; cursor: pointer;
+  }
+  button.primary { background: var(--accent); color: #06111f; border: none; font-weight: 600; }
+  button.primary:hover { filter: brightness(1.08); }
+  button.ghost:hover { background: #16233b; }
+  .examples { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .examples span { cursor: pointer; text-decoration: underline; margin-right: 12px; }
+
+  .grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; margin-top: 18px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-radius: 12px; padding: 16px;
+  }
+  .card h2 { margin: 0 0 10px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .answer-text { font-size: 15px; line-height: 1.6; white-space: pre-wrap; }
+  .meta-row { display: flex; gap: 14px; margin-top: 12px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+  .meta-row b { color: var(--text); }
+
+  .path-item {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+    background: #0e1729;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .path-item .arrow { color: var(--accent); }
+
+  .evidence-item {
+    border-left: 3px solid var(--accent-2);
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    background: #0e1729;
+    border-radius: 0 8px 8px 0;
+  }
+  .evidence-item .src { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .evidence-item .txt { font-size: 13px; line-height: 1.5; }
+
+  .tool-chip {
+    display: inline-block; font-size: 11px; padding: 3px 8px; margin: 2px 4px 2px 0;
+    background: #16233b; border: 1px solid var(--panel-border); border-radius: 999px; color: var(--accent);
+  }
+
+  .faithfulness-bar { height: 6px; background: #0e1729; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+  .faithfulness-bar > div { height: 100%; background: var(--accent-2); }
+
+  .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 18px; }
+  .system-name { font-size: 12px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+
+  .empty { color: var(--muted); font-size: 13px; }
+  .loading { color: var(--accent); font-size: 13px; }
+  .error { color: var(--danger); font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🛡️ Cyber Threat Intelligence Assistant</h1>
+  <span class="badge">GraphRAG + Agentic AI</span>
+</header>
+
+<main>
+  <div class="query-bar">
+    <input id="question" type="text" placeholder="Ask a multi-hop investigation question..." value="Which threat actors use malware that exploits vulnerabilities affecting Microsoft Exchange Server, and which attack techniques are involved?" />
+    <select id="system">
+      <option value="agentic_graph_rag" selected>Agentic GraphRAG</option>
+      <option value="graph_rag">GraphRAG</option>
+      <option value="hybrid_rag">Hybrid RAG</option>
+      <option value="naive_rag">Naive RAG</option>
+    </select>
+    <button class="primary" id="ask">Ask</button>
+    <button class="ghost" id="compare">Compare all 4 systems</button>
+  </div>
+  <div class="examples">
+    Try:
+    <span data-q="Which malware is used by APT28?">Which malware is used by APT28?</span>
+    <span data-q="Which techniques are associated with malware used by APT28?">Which techniques are associated with malware used by APT28?</span>
+    <span data-q="Which vulnerabilities are connected to malware used by threat actors that employ Spearphishing Attachment?">Multi-hop CVE question</span>
+  </div>
+
+  <div id="single-result"></div>
+  <div id="compare-result"></div>
+</main>
+
+<script>
+const API = "";
+
+function el(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html.trim();
+  return div.firstChild;
+}
+
+function renderGraphPaths(paths) {
+  if (!paths || paths.length === 0) return '<div class="empty">No graph reasoning path (this system may not use the knowledge graph).</div>';
+  return paths.map(p => `<div class="path-item">${escapeHtml(p.text)}</div>`).join("");
+}
+
+function renderEvidence(citations) {
+  if (!citations || citations.length === 0) return '<div class="empty">No document evidence retrieved.</div>';
+  return citations.map(c => `
+    <div class="evidence-item">
+      <div class="src">${escapeHtml(c.source)} &middot; ${escapeHtml(c.title)} &middot; <code>${escapeHtml(c.chunk_id)}</code></div>
+      <div class="txt">${escapeHtml(c.text)}</div>
+    </div>
+  `).join("");
+}
+
+function escapeHtml(s) {
+  return (s || "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+
+function renderResultCard(result, { compact } = {}) {
+  const faithfulness = result.metadata && typeof result.metadata.faithfulness === "number"
+    ? result.metadata.faithfulness : null;
+
+  return `
+    <div class="grid">
+      <div class="card">
+        <h2>Answer${compact ? "" : ""}</h2>
+        <div class="answer-text">${escapeHtml(result.answer)}</div>
+        <div class="meta-row">
+          <span><b>${result.system}</b></span>
+          <span>Latency: <b>${(result.latency_seconds * 1000).toFixed(1)} ms</b></span>
+          <span>Graph paths: <b>${result.graph_paths.length}</b></span>
+          <span>Citations: <b>${result.citations.length}</b></span>
+        </div>
+        <div class="meta-row">${result.tool_calls.map(t => `<span class="tool-chip">${escapeHtml(t)}</span>`).join("")}</div>
+        ${faithfulness !== null ? `
+          <div class="meta-row" style="display:block;">
+            <span>Faithfulness (verified claim ratio): <b>${(faithfulness*100).toFixed(0)}%</b></span>
+            <div class="faithfulness-bar"><div style="width:${(faithfulness*100).toFixed(0)}%"></div></div>
+          </div>` : ""}
+      </div>
+      <div class="card">
+        <h2>Knowledge Graph Reasoning Path</h2>
+        ${renderGraphPaths(result.graph_paths)}
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <h2>Evidence</h2>
+      ${renderEvidence(result.citations)}
+    </div>
+  `;
+}
+
+async function ask() {
+  const question = document.getElementById("question").value.trim();
+  const system = document.getElementById("system").value;
+  const singleDiv = document.getElementById("single-result");
+  const compareDiv = document.getElementById("compare-result");
+  compareDiv.innerHTML = "";
+  if (!question) return;
+  singleDiv.innerHTML = '<div class="loading">Investigating...</div>';
+  try {
+    const res = await fetch(`${API}/query`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, system }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const result = await res.json();
+    singleDiv.innerHTML = renderResultCard(result);
+  } catch (e) {
+    singleDiv.innerHTML = `<div class="error">Error: ${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function compareAll() {
+  const question = document.getElementById("question").value.trim();
+  const singleDiv = document.getElementById("single-result");
+  const compareDiv = document.getElementById("compare-result");
+  singleDiv.innerHTML = "";
+  if (!question) return;
+  compareDiv.innerHTML = '<div class="loading">Running all 4 systems...</div>';
+  try {
+    const res = await fetch(`${API}/compare`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const results = await res.json();
+    const order = ["naive_rag", "hybrid_rag", "graph_rag", "agentic_graph_rag"];
+    compareDiv.innerHTML = '<div class="compare-grid">' + order.map(name => {
+      const r = results[name];
+      if (!r) return "";
+      return `<div class="card">
+        <div class="system-name">${name.replace(/_/g, " ")}</div>
+        <div class="answer-text" style="font-size:13px;">${escapeHtml(r.answer)}</div>
+        <div class="meta-row">
+          <span>Graph paths: <b>${r.graph_paths.length}</b></span>
+          <span>Citations: <b>${r.citations.length}</b></span>
+          <span>${(r.latency_seconds*1000).toFixed(1)} ms</span>
+        </div>
+      </div>`;
+    }).join("") + '</div>';
+  } catch (e) {
+    compareDiv.innerHTML = `<div class="error">Error: ${escapeHtml(e.message)}</div>`;
+  }
+}
+
+document.getElementById("ask").addEventListener("click", ask);
+document.getElementById("compare").addEventListener("click", compareAll);
+document.querySelectorAll(".examples span").forEach(s => {
+  s.addEventListener("click", () => { document.getElementById("question").value = s.dataset.q; });
+});
+document.getElementById("question").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") ask();
+});
+</script>
+</body>
+</html>

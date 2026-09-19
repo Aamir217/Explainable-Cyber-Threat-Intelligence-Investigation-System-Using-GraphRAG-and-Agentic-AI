@@ -1,0 +1,29 @@
+{
+  "note": "Curated sample subset modeled on real NVD CVE records for demo/evaluation purposes.",
+  "cves": [
+    {
+      "id": "CVE-2020-0688",
+      "description": "Microsoft Exchange Server validation key remote code execution vulnerability. A remote code execution vulnerability exists in Microsoft Exchange software when the software fails to properly create unique keys at install time.",
+      "cvss_v3_score": 8.8,
+      "cvss_v3_severity": "HIGH",
+      "published_date": "2020-02-11",
+      "affected_products": ["Microsoft Exchange Server"]
+    },
+    {
+      "id": "CVE-2021-26855",
+      "description": "Microsoft Exchange Server Server-Side Request Forgery (SSRF) vulnerability, also known as ProxyLogon, allowing an attacker to send arbitrary HTTP requests and authenticate as the Exchange server.",
+      "cvss_v3_score": 9.1,
+      "cvss_v3_severity": "CRITICAL",
+      "published_date": "2021-03-02",
+      "affected_products": ["Microsoft Exchange Server"]
+    },
+    {
+      "id": "CVE-2020-4006",
+      "description": "VMware Workspace ONE Access, Access Connector, Identity Manager, and Identity Manager Connector command injection vulnerability that could allow an attacker with network access to the administrative configurator to execute commands.",
+      "cvss_v3_score": 9.1,
+      "cvss_v3_severity": "CRITICAL",
+      "published_date": "2020-12-03",
+      "affected_products": ["VMware Workspace ONE Access"]
+    }
+  ]
+}

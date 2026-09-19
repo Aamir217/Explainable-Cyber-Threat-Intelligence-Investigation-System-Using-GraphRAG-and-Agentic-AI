@@ -1,0 +1,17 @@
+[project]
+name = "cti-graphrag"
+version = "0.1.0"
+description = "Explainable Cyber Threat Intelligence & Investigation System using GraphRAG and Agentic AI"
+requires-python = ">=3.10"
+readme = "README.md"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

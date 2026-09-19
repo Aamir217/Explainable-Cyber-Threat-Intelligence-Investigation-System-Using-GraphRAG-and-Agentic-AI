@@ -1,0 +1,165 @@
+{
+  "note": "Evaluation questions derived directly from the sample knowledge graph in data/sample/, categorized by required hop count so retrieval and answer quality can be measured per reasoning depth.",
+  "questions": [
+    {
+      "id": "Q1",
+      "category": "single-hop",
+      "question": "Which technique does APT28 use for initial access?",
+      "ground_truth_answer": "APT28 uses Spearphishing Attachment (T1566.001) for initial access.",
+      "relevant_entities": ["APT28", "Spearphishing Attachment"],
+      "required_relationships": ["ThreatActor-USES->Technique"],
+      "supporting_documents": ["RPT-001", "RPT-005"],
+      "expected_reasoning_path": ["APT28", "Spearphishing Attachment"]
+    },
+    {
+      "id": "Q2",
+      "category": "single-hop",
+      "question": "Which technique does APT29 use for initial access?",
+      "ground_truth_answer": "APT29 uses Spearphishing Attachment (T1566.001) for initial access.",
+      "relevant_entities": ["APT29", "Spearphishing Attachment"],
+      "required_relationships": ["ThreatActor-USES->Technique"],
+      "supporting_documents": ["RPT-002"],
+      "expected_reasoning_path": ["APT29", "Spearphishing Attachment"]
+    },
+    {
+      "id": "Q3",
+      "category": "single-hop",
+      "question": "Which sectors does APT28 target?",
+      "ground_truth_answer": "APT28 targets the Government and Defense Contractors sectors.",
+      "relevant_entities": ["APT28", "Government", "Defense Contractors"],
+      "required_relationships": ["ThreatActor-TARGETS->Sector"],
+      "supporting_documents": ["RPT-001", "RPT-005"],
+      "expected_reasoning_path": ["APT28", "Government"]
+    },
+    {
+      "id": "Q4",
+      "category": "single-hop",
+      "question": "Which sectors does APT29 target?",
+      "ground_truth_answer": "APT29 targets the Government and Healthcare sectors.",
+      "relevant_entities": ["APT29", "Government", "Healthcare"],
+      "required_relationships": ["ThreatActor-TARGETS->Sector"],
+      "supporting_documents": ["RPT-002"],
+      "expected_reasoning_path": ["APT29", "Healthcare"]
+    },
+    {
+      "id": "Q5",
+      "category": "two-hop",
+      "question": "Which malware is used by APT28?",
+      "ground_truth_answer": "APT28 uses X-Agent, Zebrocy, and Cobalt Strike.",
+      "relevant_entities": ["APT28", "X-Agent", "Zebrocy", "Cobalt Strike"],
+      "required_relationships": ["ThreatActor-USES->Malware"],
+      "supporting_documents": ["RPT-001", "RPT-005"],
+      "expected_reasoning_path": ["APT28", "Zebrocy"]
+    },
+    {
+      "id": "Q6",
+      "category": "two-hop",
+      "question": "Which malware is used by APT29?",
+      "ground_truth_answer": "APT29 uses WellMess and Cobalt Strike.",
+      "relevant_entities": ["APT29", "WellMess", "Cobalt Strike"],
+      "required_relationships": ["ThreatActor-USES->Malware"],
+      "supporting_documents": ["RPT-002", "RPT-003"],
+      "expected_reasoning_path": ["APT29", "WellMess"]
+    },
+    {
+      "id": "Q7",
+      "category": "two-hop",
+      "question": "Which campaign is attributed to APT29?",
+      "ground_truth_answer": "Operation Ghost is attributed to APT29.",
+      "relevant_entities": ["APT29", "Operation Ghost"],
+      "required_relationships": ["Campaign-ATTRIBUTED_TO->ThreatActor"],
+      "supporting_documents": ["RPT-002"],
+      "expected_reasoning_path": ["Operation Ghost", "APT29"]
+    },
+    {
+      "id": "Q8",
+      "category": "two-hop",
+      "question": "Which campaign is attributed to APT28?",
+      "ground_truth_answer": "Sofacy 2020 Intrusion Set is attributed to APT28.",
+      "relevant_entities": ["APT28", "Sofacy 2020 Intrusion Set"],
+      "required_relationships": ["Campaign-ATTRIBUTED_TO->ThreatActor"],
+      "supporting_documents": ["RPT-001"],
+      "expected_reasoning_path": ["Sofacy 2020 Intrusion Set", "APT28"]
+    },
+    {
+      "id": "Q9",
+      "category": "three-hop",
+      "question": "Which techniques are associated with malware used by APT28?",
+      "ground_truth_answer": "Malware used by APT28 employs Command and Scripting Interpreter (T1059), Application Layer Protocol (T1071), Spearphishing Attachment (T1566.001), and Exploitation of Remote Services (T1210).",
+      "relevant_entities": ["APT28", "X-Agent", "Zebrocy", "Cobalt Strike", "Command and Scripting Interpreter", "Application Layer Protocol", "Spearphishing Attachment", "Exploitation of Remote Services"],
+      "required_relationships": ["ThreatActor-USES->Malware", "Malware-USES->Technique"],
+      "supporting_documents": ["RPT-001", "RPT-005"],
+      "expected_reasoning_path": ["APT28", "Zebrocy", "Spearphishing Attachment"]
+    },
+    {
+      "id": "Q10",
+      "category": "three-hop",
+      "question": "Which techniques are associated with malware used by APT29?",
+      "ground_truth_answer": "Malware used by APT29 employs Application Layer Protocol (T1071) and Command and Scripting Interpreter (T1059).",
+      "relevant_entities": ["APT29", "WellMess", "Cobalt Strike", "Application Layer Protocol", "Command and Scripting Interpreter"],
+      "required_relationships": ["ThreatActor-USES->Malware", "Malware-USES->Technique"],
+      "supporting_documents": ["RPT-002", "RPT-003"],
+      "expected_reasoning_path": ["APT29", "WellMess", "Application Layer Protocol"]
+    },
+    {
+      "id": "Q11",
+      "category": "three-hop",
+      "question": "Which vulnerabilities are exploited by malware used by APT28?",
+      "ground_truth_answer": "APT28's Zebrocy malware exploits CVE-2020-0688.",
+      "relevant_entities": ["APT28", "Zebrocy", "CVE-2020-0688"],
+      "required_relationships": ["ThreatActor-USES->Malware", "Malware-EXPLOITS->CVE"],
+      "supporting_documents": ["RPT-001", "RPT-004"],
+      "expected_reasoning_path": ["APT28", "Zebrocy", "CVE-2020-0688"]
+    },
+    {
+      "id": "Q12",
+      "category": "three-hop",
+      "question": "Which vulnerabilities are exploited by malware used by APT29?",
+      "ground_truth_answer": "APT29's WellMess malware exploits CVE-2021-26855, and Cobalt Strike (also used by APT29) exploits CVE-2020-4006.",
+      "relevant_entities": ["APT29", "WellMess", "Cobalt Strike", "CVE-2021-26855", "CVE-2020-4006"],
+      "required_relationships": ["ThreatActor-USES->Malware", "Malware-EXPLOITS->CVE"],
+      "supporting_documents": ["RPT-002", "RPT-003", "RPT-004"],
+      "expected_reasoning_path": ["APT29", "WellMess", "CVE-2021-26855"]
+    },
+    {
+      "id": "Q13",
+      "category": "multi-hop",
+      "question": "Which vulnerabilities are connected to malware used by threat actors that employ Spearphishing Attachment?",
+      "ground_truth_answer": "Threat actors employing Spearphishing Attachment (APT28 and APT29) use malware (Zebrocy, X-Agent, Cobalt Strike, WellMess) that collectively exploits CVE-2020-0688, CVE-2020-4006, and CVE-2021-26855.",
+      "relevant_entities": ["APT28", "APT29", "Zebrocy", "WellMess", "Cobalt Strike", "CVE-2020-0688", "CVE-2021-26855", "CVE-2020-4006"],
+      "required_relationships": ["ThreatActor-USES->Technique", "ThreatActor-USES->Malware", "Malware-EXPLOITS->CVE"],
+      "supporting_documents": ["RPT-001", "RPT-002", "RPT-003", "RPT-004"],
+      "expected_reasoning_path": ["APT28", "Zebrocy", "Spearphishing Attachment"]
+    },
+    {
+      "id": "Q14",
+      "category": "multi-hop",
+      "question": "Which threat actors use malware that exploits vulnerabilities affecting Microsoft Exchange Server, and which attack techniques are involved?",
+      "ground_truth_answer": "APT28 (via Zebrocy exploiting CVE-2020-0688) and APT29 (via WellMess exploiting CVE-2021-26855) both target Microsoft Exchange Server; involved techniques include Spearphishing Attachment, Exploitation of Remote Services, Application Layer Protocol, and Command and Scripting Interpreter.",
+      "relevant_entities": ["APT28", "APT29", "Zebrocy", "WellMess", "CVE-2020-0688", "CVE-2021-26855", "Microsoft Exchange Server"],
+      "required_relationships": ["CVE-AFFECTS->Product", "Malware-EXPLOITS->CVE", "ThreatActor-USES->Malware", "Malware-USES->Technique"],
+      "supporting_documents": ["RPT-001", "RPT-002", "RPT-004"],
+      "expected_reasoning_path": ["Microsoft Exchange Server", "CVE-2020-0688", "Zebrocy", "APT28"]
+    },
+    {
+      "id": "Q15",
+      "category": "multi-hop",
+      "question": "Which techniques are used by malware associated with campaigns attributed to APT29?",
+      "ground_truth_answer": "Operation Ghost (attributed to APT29) uses WellMess, which employs Application Layer Protocol (T1071) and Command and Scripting Interpreter (T1059).",
+      "relevant_entities": ["APT29", "Operation Ghost", "WellMess", "Application Layer Protocol", "Command and Scripting Interpreter"],
+      "required_relationships": ["Campaign-ATTRIBUTED_TO->ThreatActor", "Campaign-USES->Malware", "Malware-USES->Technique"],
+      "supporting_documents": ["RPT-002"],
+      "expected_reasoning_path": ["Operation Ghost", "WellMess", "Application Layer Protocol"]
+    },
+    {
+      "id": "Q16",
+      "category": "multi-hop",
+      "question": "Which products are affected by vulnerabilities exploited by malware used in campaigns attributed to APT28?",
+      "ground_truth_answer": "Sofacy 2020 Intrusion Set (attributed to APT28) uses Zebrocy, which exploits CVE-2020-0688, affecting Microsoft Exchange Server.",
+      "relevant_entities": ["APT28", "Sofacy 2020 Intrusion Set", "Zebrocy", "CVE-2020-0688", "Microsoft Exchange Server"],
+      "required_relationships": ["Campaign-ATTRIBUTED_TO->ThreatActor", "Campaign-USES->Malware", "Malware-EXPLOITS->CVE", "CVE-AFFECTS->Product"],
+      "supporting_documents": ["RPT-001", "RPT-004"],
+      "expected_reasoning_path": ["Sofacy 2020 Intrusion Set", "Zebrocy", "CVE-2020-0688", "Microsoft Exchange Server"]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "type": "bundle",
+  "id": "bundle--cti-graphrag-sample",
+  "spec_version": "2.1",
+  "note": "Curated, simplified STIX-like sample modeled on real MITRE ATT&CK entities (APT28/APT29 and associated malware/techniques/CVEs) for demo and evaluation purposes. Not a verbatim copy of the official ATT&CK dataset.",
+  "objects": [
+    {"type": "x-mitre-tactic", "id": "tactic--TA0001", "external_id": "TA0001", "name": "Initial Access"},
+    {"type": "x-mitre-tactic", "id": "tactic--TA0002", "external_id": "TA0002", "name": "Execution"},
+    {"type": "x-mitre-tactic", "id": "tactic--TA0008", "external_id": "TA0008", "name": "Lateral Movement"},
+    {"type": "x-mitre-tactic", "id": "tactic--TA0011", "external_id": "TA0011", "name": "Command and Control"},
+
+    {"type": "attack-pattern", "id": "attack-pattern--T1566", "external_id": "T1566", "name": "Phishing", "tactic_refs": ["tactic--TA0001"]},
+    {"type": "attack-pattern", "id": "attack-pattern--T1566.001", "external_id": "T1566.001", "name": "Spearphishing Attachment", "parent_ref": "attack-pattern--T1566", "tactic_refs": ["tactic--TA0001"]},
+    {"type": "attack-pattern", "id": "attack-pattern--T1059", "external_id": "T1059", "name": "Command and Scripting Interpreter", "tactic_refs": ["tactic--TA0002"]},
+    {"type": "attack-pattern", "id": "attack-pattern--T1071", "external_id": "T1071", "name": "Application Layer Protocol", "tactic_refs": ["tactic--TA0011"]},
+    {"type": "attack-pattern", "id": "attack-pattern--T1210", "external_id": "T1210", "name": "Exploitation of Remote Services", "tactic_refs": ["tactic--TA0008"]},
+
+    {"type": "course-of-action", "id": "mitigation--M1017", "external_id": "M1017", "name": "User Training"},
+    {"type": "course-of-action", "id": "mitigation--M1038", "external_id": "M1038", "name": "Execution Prevention"},
+    {"type": "course-of-action", "id": "mitigation--M1051", "external_id": "M1051", "name": "Update Software"},
+
+    {"type": "intrusion-set", "id": "intrusion-set--APT28", "external_id": "G0007", "name": "APT28", "aliases": ["Fancy Bear", "Sofacy", "Sednit", "Pawn Storm"]},
+    {"type": "intrusion-set", "id": "intrusion-set--APT29", "external_id": "G0016", "name": "APT29", "aliases": ["Cozy Bear", "The Dukes", "Nobelium"]},
+
+    {"type": "malware", "id": "malware--XAgent", "external_id": "S0110", "name": "X-Agent"},
+    {"type": "malware", "id": "malware--Zebrocy", "external_id": "S0251", "name": "Zebrocy"},
+    {"type": "malware", "id": "malware--WellMess", "external_id": "S0432", "name": "WellMess"},
+    {"type": "malware", "id": "malware--CobaltStrike", "external_id": "S0154", "name": "Cobalt Strike"},
+
+    {"type": "campaign", "id": "campaign--OperationGhost", "external_id": "C0022", "name": "Operation Ghost"},
+    {"type": "campaign", "id": "campaign--Sofacy2020", "external_id": "C0023", "name": "Sofacy 2020 Intrusion Set"},
+
+    {"type": "identity", "id": "sector--government", "name": "Government", "identity_class": "sector"},
+    {"type": "identity", "id": "sector--healthcare", "name": "Healthcare", "identity_class": "sector"},
+    {"type": "identity", "id": "sector--defense", "name": "Defense Contractors", "identity_class": "sector"},
+
+    {"type": "relationship", "id": "rel--1", "relationship_type": "uses", "source_ref": "intrusion-set--APT28", "target_ref": "malware--XAgent"},
+    {"type": "relationship", "id": "rel--2", "relationship_type": "uses", "source_ref": "intrusion-set--APT28", "target_ref": "malware--Zebrocy"},
+    {"type": "relationship", "id": "rel--3", "relationship_type": "uses", "source_ref": "intrusion-set--APT28", "target_ref": "malware--CobaltStrike"},
+    {"type": "relationship", "id": "rel--4", "relationship_type": "uses", "source_ref": "intrusion-set--APT29", "target_ref": "malware--WellMess"},
+    {"type": "relationship", "id": "rel--5", "relationship_type": "uses", "source_ref": "intrusion-set--APT29", "target_ref": "malware--CobaltStrike"},
+
+    {"type": "relationship", "id": "rel--6", "relationship_type": "uses", "source_ref": "intrusion-set--APT28", "target_ref": "attack-pattern--T1566.001"},
+    {"type": "relationship", "id": "rel--7", "relationship_type": "uses", "source_ref": "intrusion-set--APT29", "target_ref": "attack-pattern--T1566.001"},
+
+    {"type": "relationship", "id": "rel--8", "relationship_type": "uses", "source_ref": "malware--XAgent", "target_ref": "attack-pattern--T1059"},
+    {"type": "relationship", "id": "rel--9", "relationship_type": "uses", "source_ref": "malware--XAgent", "target_ref": "attack-pattern--T1071"},
+    {"type": "relationship", "id": "rel--10", "relationship_type": "uses", "source_ref": "malware--Zebrocy", "target_ref": "attack-pattern--T1566.001"},
+    {"type": "relationship", "id": "rel--11", "relationship_type": "uses", "source_ref": "malware--Zebrocy", "target_ref": "attack-pattern--T1210"},
+    {"type": "relationship", "id": "rel--12", "relationship_type": "uses", "source_ref": "malware--WellMess", "target_ref": "attack-pattern--T1071"},
+    {"type": "relationship", "id": "rel--13", "relationship_type": "uses", "source_ref": "malware--WellMess", "target_ref": "attack-pattern--T1059"},
+    {"type": "relationship", "id": "rel--14", "relationship_type": "uses", "source_ref": "malware--CobaltStrike", "target_ref": "attack-pattern--T1071"},
+    {"type": "relationship", "id": "rel--15", "relationship_type": "uses", "source_ref": "malware--CobaltStrike", "target_ref": "attack-pattern--T1059"},
+
+    {"type": "relationship", "id": "rel--16", "relationship_type": "exploits", "source_ref": "malware--Zebrocy", "target_ref": "vulnerability--CVE-2020-0688"},
+    {"type": "relationship", "id": "rel--17", "relationship_type": "exploits", "source_ref": "malware--WellMess", "target_ref": "vulnerability--CVE-2021-26855"},
+    {"type": "relationship", "id": "rel--18", "relationship_type": "exploits", "source_ref": "malware--CobaltStrike", "target_ref": "vulnerability--CVE-2020-4006"},
+
+    {"type": "relationship", "id": "rel--19", "relationship_type": "mitigates", "source_ref": "mitigation--M1017", "target_ref": "attack-pattern--T1566.001"},
+    {"type": "relationship", "id": "rel--20", "relationship_type": "mitigates", "source_ref": "mitigation--M1038", "target_ref": "attack-pattern--T1059"},
+    {"type": "relationship", "id": "rel--21", "relationship_type": "mitigates", "source_ref": "mitigation--M1051", "target_ref": "vulnerability--CVE-2020-0688"},
+    {"type": "relationship", "id": "rel--22", "relationship_type": "mitigates", "source_ref": "mitigation--M1051", "target_ref": "vulnerability--CVE-2021-26855"},
+
+    {"type": "relationship", "id": "rel--23", "relationship_type": "attributed-to", "source_ref": "campaign--OperationGhost", "target_ref": "intrusion-set--APT29"},
+    {"type": "relationship", "id": "rel--24", "relationship_type": "attributed-to", "source_ref": "campaign--Sofacy2020", "target_ref": "intrusion-set--APT28"},
+    {"type": "relationship", "id": "rel--25", "relationship_type": "uses", "source_ref": "campaign--OperationGhost", "target_ref": "malware--WellMess"},
+    {"type": "relationship", "id": "rel--26", "relationship_type": "uses", "source_ref": "campaign--Sofacy2020", "target_ref": "malware--Zebrocy"},
+    {"type": "relationship", "id": "rel--27", "relationship_type": "uses", "source_ref": "campaign--Sofacy2020", "target_ref": "malware--XAgent"},
+
+    {"type": "relationship", "id": "rel--28", "relationship_type": "targets", "source_ref": "intrusion-set--APT28", "target_ref": "sector--government"},
+    {"type": "relationship", "id": "rel--29", "relationship_type": "targets", "source_ref": "intrusion-set--APT28", "target_ref": "sector--defense"},
+    {"type": "relationship", "id": "rel--30", "relationship_type": "targets", "source_ref": "intrusion-set--APT29", "target_ref": "sector--government"},
+    {"type": "relationship", "id": "rel--31", "relationship_type": "targets", "source_ref": "intrusion-set--APT29", "target_ref": "sector--healthcare"}
+  ]
+}

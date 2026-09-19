@@ -37,6 +37,13 @@
     padding: 2px 8px;
     border-radius: 999px;
   }
+  nav { margin-left: auto; display: flex; gap: 8px; }
+  nav a {
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    padding: 6px 12px; border-radius: 8px; border: 1px solid transparent;
+  }
+  nav a.active { color: var(--text); border-color: var(--panel-border); background: #16233b; }
+  nav a:hover { color: var(--text); }
   main { max-width: 1200px; margin: 0 auto; padding: 20px 24px 60px; }
   .query-bar {
     display: flex; gap: 10px; flex-wrap: wrap;
@@ -115,6 +122,10 @@
 <header>
   <h1>🛡️ Cyber Threat Intelligence Assistant</h1>
   <span class="badge">GraphRAG + Agentic AI</span>
+  <nav>
+    <a href="/" class="active">Ask a question</a>
+    <a href="/results.html">Evaluation results</a>
+  </nav>
 </header>
 
 <main>

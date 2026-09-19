@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
@@ -14,6 +15,13 @@ from cti_graphrag.llm import get_llm
 from cti_graphrag.rag import SYSTEM_REGISTRY, BaseRAGSystem, build_all_systems
 
 FRONTEND_DIR = Path(__file__).resolve().parents[3] / "frontend"
+REPORTS_DIR = Path(__file__).resolve().parents[3] / "reports"
+
+REPORT_FILES = {
+    "eval": ("eval_results.json", "python -m cti_graphrag.evaluation.run_evaluation"),
+    "ablation": ("ablation_results.json", "python -m cti_graphrag.evaluation.ablation"),
+    "errors": ("error_analysis.json", "python -m cti_graphrag.evaluation.error_analysis"),
+}
 
 app = FastAPI(title="Explainable CTI Investigation API", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -83,6 +91,21 @@ def graph_entity(name: str, hops: int = 1) -> dict:
         "entity": {"id": node.id, "name": node.name, "type": node.type.value},
         "paths": [p.to_dict() for p in paths if p.length > 0],
     }
+
+
+@app.get("/reports/{name}")
+def get_report(name: str) -> dict:
+    entry = REPORT_FILES.get(name)
+    if entry is None:
+        raise HTTPException(status_code=404, detail=f"Unknown report '{name}'. Options: {list(REPORT_FILES)}")
+    filename, generate_cmd = entry
+    path = REPORTS_DIR / filename
+    if not path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"Report not generated yet. Run: {generate_cmd}",
+        )
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 if FRONTEND_DIR.exists():

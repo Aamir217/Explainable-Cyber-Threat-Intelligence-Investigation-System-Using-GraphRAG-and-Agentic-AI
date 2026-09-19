@@ -50,3 +50,21 @@ def test_graph_entity_endpoint(client):
 def test_graph_entity_not_found(client):
     response = client.get("/graph/entity", params={"name": "NoSuchEntityXYZ"})
     assert response.status_code == 404
+
+
+@pytest.mark.parametrize("report_name", ["eval", "ablation", "errors"])
+def test_reports_endpoint(client, report_name):
+    response = client.get(f"/reports/{report_name}")
+    assert response.status_code == 200
+    assert response.json()
+
+
+def test_reports_endpoint_unknown_name(client):
+    response = client.get("/reports/not-a-real-report")
+    assert response.status_code == 404
+
+
+def test_results_html_served(client):
+    response = client.get("/results.html")
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]

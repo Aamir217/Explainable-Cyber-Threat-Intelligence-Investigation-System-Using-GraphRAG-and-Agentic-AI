@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CTI Evaluation Results</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --panel: #121b2e;
+    --panel-border: #223049;
+    --text: #e6edf7;
+    --text-secondary: #93a2ba;
+    --muted: #6c7c98;
+    --grid: #223049;
+    --baseline: #33415c;
+    --accent: #4da3ff;
+
+    /* Categorical series colors -- dark-mode steps from the dataviz skill's
+       validated 8-hue order (slots 1-4), assigned in FIXED order per system
+       everywhere on this page so identity never repaints when data changes. */
+    --series-naive: #3987e5;    /* slot 1: blue */
+    --series-hybrid: #d95926;   /* slot 2: orange */
+    --series-graph: #199e70;    /* slot 3: aqua */
+    --series-agentic: #c98500;  /* slot 4: yellow */
+
+    /* Sequential blue ramp (dark-surface ordinal direction: dark -> light
+       encodes "more components added" in the ablation study). */
+    --seq-1: #184f95;
+    --seq-2: #1c5cab;
+    --seq-3: #2a78d6;
+    --seq-4: #3987e5;
+    --seq-5: #6da7ec;
+    --seq-6: #9ec5f4;
+    --seq-7: #cde2fb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  header h1 { font-size: 18px; margin: 0; }
+  header .badge {
+    font-size: 11px; color: var(--text-secondary);
+    border: 1px solid var(--panel-border); padding: 2px 8px; border-radius: 999px;
+  }
+  nav { margin-left: auto; display: flex; gap: 8px; }
+  nav a {
+    color: var(--text-secondary); text-decoration: none; font-size: 13px;
+    padding: 6px 12px; border-radius: 8px; border: 1px solid transparent;
+  }
+  nav a.active { color: var(--text); border-color: var(--panel-border); background: #16233b; }
+  nav a:hover { color: var(--text); }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 20px 24px 80px; }
+
+  section { margin-top: 28px; }
+  section h2 { font-size: 15px; margin: 0 0 4px; }
+  section p.desc { font-size: 13px; color: var(--text-secondary); margin: 0 0 14px; max-width: 780px; line-height: 1.5; }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-radius: 12px; padding: 16px;
+  }
+
+  .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .toolbar button {
+    background: #0e1729; color: var(--text); border: 1px solid var(--panel-border);
+    padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;
+  }
+  .toolbar button.active { border-color: var(--accent); color: var(--accent); }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; color: var(--text-secondary); }
+  .legend .key { display: flex; align-items: center; gap: 6px; }
+  /* Rect swatch, not a line key: these are bar charts, and a legend mirrors the mark it labels. */
+  .legend .swatch { width: 12px; height: 10px; border-radius: 3px; display: inline-block; }
+
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+  .metric-card h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-secondary); margin: 0 0 10px; }
+
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; position: relative; }
+  .bar-row .bar-label {
+    width: 168px; flex-shrink: 0; font-size: 11.5px; line-height: 1.3;
+    color: var(--text-secondary); text-align: right; padding-right: 4px;
+    text-transform: capitalize;
+  }
+  .bar-track { flex: 1; position: relative; height: 20px; background: linear-gradient(to right, transparent 0, transparent 100%); }
+  .bar-track .gridline { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--grid); }
+  .bar-track .baseline { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--baseline); }
+  .bar-fill {
+    position: absolute; top: 2px; height: 16px; border-radius: 4px;
+    transition: filter .1s ease; cursor: default;
+  }
+  .bar-fill:hover, .bar-fill:focus { filter: brightness(1.18); outline: none; }
+  .bar-value { font-size: 11px; color: var(--text); margin-left: 6px; white-space: nowrap; }
+  .bar-value-inline { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; }
+
+  .hop-group { margin-bottom: 18px; }
+  .hop-group .hop-title { font-size: 12.5px; color: var(--text); font-weight: 600; margin-bottom: 6px; }
+
+  .error-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .error-card h3 { font-size: 13px; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+  .error-card h3 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  #tooltip {
+    position: fixed; pointer-events: none; z-index: 50;
+    background: #0e1729; border: 1px solid var(--panel-border);
+    border-radius: 8px; padding: 6px 10px; font-size: 12px;
+    color: var(--text); box-shadow: 0 4px 16px rgba(0,0,0,.4);
+    display: none; white-space: nowrap;
+  }
+  #tooltip .t-value { font-weight: 700; }
+  #tooltip .t-series { color: var(--text-secondary); margin-top: 2px; }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.data-table th, table.data-table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--panel-border); }
+  table.data-table th { color: var(--text-secondary); font-weight: 600; }
+
+  .empty, .loading, .error { font-size: 13px; color: var(--text-secondary); padding: 16px; }
+  .error { color: #ff6b6b; }
+  code { background: #0e1729; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📊 Evaluation Results</h1>
+  <span class="badge">Naive vs Hybrid vs GraphRAG vs Agentic GraphRAG</span>
+  <nav>
+    <a href="/">Ask a question</a>
+    <a href="/results.html" class="active">Evaluation results</a>
+  </nav>
+</header>
+
+<main>
+  <section id="system-comparison">
+    <h2>System comparison</h2>
+    <p class="desc">
+      All four systems answering the same 16 evaluation questions. Higher is better for every
+      metric except latency.
+    </p>
+    <div class="legend" id="legend-systems"></div>
+    <div id="system-comparison-body"><div class="loading">Loading /reports/eval...</div></div>
+  </section>
+
+  <section id="hop-depth">
+    <h2>Does the GraphRAG advantage grow with reasoning depth?</h2>
+    <p class="desc">
+      Semantic similarity to the gold answer, broken out by how many graph hops each question
+      requires. If GraphRAG's edge comes from multi-hop traversal, the gap to Naive/Hybrid RAG
+      should widen as hop depth increases.
+    </p>
+    <div id="hop-depth-body"><div class="loading">Loading...</div></div>
+  </section>
+
+  <section id="ablation">
+    <h2>Ablation study: incremental component effect</h2>
+    <p class="desc">
+      Each configuration adds exactly one capability on top of the row above it. Bars run
+      dark → light as sophistication increases.
+    </p>
+    <div class="toolbar" id="ablation-toolbar"></div>
+    <div id="ablation-body"><div class="loading">Loading /reports/ablation...</div></div>
+  </section>
+
+  <section id="errors">
+    <h2>Error analysis</h2>
+    <p class="desc">
+      Failure categories for every answer scoring below the F1 threshold, one panel per system.
+      Naive/Hybrid RAG's "missing graph relationship" count reflects that they structurally never
+      use the graph at all -- not a bug, the point of the comparison.
+    </p>
+    <div id="errors-body"><div class="loading">Loading /reports/errors...</div></div>
+  </section>
+</main>
+
+<div id="tooltip"></div>
+
+<script>
+const SERIES = [
+  { key: "naive_rag",           label: "Naive RAG",           color: "var(--series-naive)" },
+  { key: "hybrid_rag",          label: "Hybrid RAG",          color: "var(--series-hybrid)" },
+  { key: "graph_rag",           label: "GraphRAG",            color: "var(--series-graph)" },
+  { key: "agentic_graph_rag",   label: "Agentic GraphRAG",    color: "var(--series-agentic)" },
+];
+const SERIES_BY_KEY = Object.fromEntries(SERIES.map(s => [s.key, s]));
+
+const METRICS = [
+  { key: "f1", label: "F1 (vs gold answer)", format: v => v.toFixed(3), max: 1 },
+  { key: "semantic_similarity", label: "Semantic similarity", format: v => v.toFixed(3), max: 1 },
+  { key: "entity_coverage", label: "Entity coverage", format: v => (v * 100).toFixed(0) + "%", max: 1 },
+  { key: "recall_at_5", label: "Recall@5 (documents)", format: v => v.toFixed(2), max: null },
+  { key: "faithfulness", label: "Faithfulness", format: v => (v * 100).toFixed(0) + "%", max: 1 },
+  { key: "latency_seconds", label: "Latency (ms, lower is better)", format: v => (v * 1000).toFixed(1), max: null, raw: v => v * 1000 },
+];
+
+const HOP_ORDER = ["single-hop", "two-hop", "three-hop", "multi-hop"];
+
+const ABLATION_ORDER = [
+  "naive_rag", "hybrid_rag", "graph_rag", "graph_rag_reranked",
+  "graph_rag_hybrid_retrieval", "agentic_graph_rag_no_verification", "agentic_graph_rag_verified",
+];
+const ABLATION_LABELS = {
+  naive_rag: "Naive RAG",
+  hybrid_rag: "Hybrid RAG",
+  graph_rag: "GraphRAG",
+  graph_rag_reranked: "GraphRAG + reranking",
+  graph_rag_hybrid_retrieval: "GraphRAG + hybrid retrieval",
+  agentic_graph_rag_no_verification: "Agentic GraphRAG (no verification)",
+  agentic_graph_rag_verified: "Agentic GraphRAG + verification",
+};
+const ABLATION_METRICS = [
+  { key: "semantic_similarity", label: "Semantic similarity", format: v => v.toFixed(3) },
+  { key: "entity_coverage", label: "Entity coverage", format: v => (v * 100).toFixed(0) + "%" },
+  { key: "faithfulness", label: "Faithfulness", format: v => (v * 100).toFixed(0) + "%" },
+];
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+
+function resolveColor(varExpr) {
+  // e.g. "var(--series-naive)" -> actual hex, so we can use it in inline SVG-less divs consistently
+  const name = varExpr.match(/--[\w-]+/)[0];
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+const tooltipEl = document.getElementById("tooltip");
+function showTooltip(evt, valueText, seriesText) {
+  tooltipEl.innerHTML = "";
+  const v = document.createElement("div");
+  v.className = "t-value";
+  v.textContent = valueText;
+  const s = document.createElement("div");
+  s.className = "t-series";
+  s.textContent = seriesText;
+  tooltipEl.appendChild(v);
+  tooltipEl.appendChild(s);
+  tooltipEl.style.display = "block";
+  moveTooltip(evt);
+}
+function moveTooltip(evt) {
+  tooltipEl.style.left = (evt.clientX + 14) + "px";
+  tooltipEl.style.top = (evt.clientY + 14) + "px";
+}
+function hideTooltip() { tooltipEl.style.display = "none"; }
+
+/**
+ * Render a single-panel horizontal bar chart.
+ * bars: [{ label, value, color, formattedValue, seriesLabel }]
+ */
+function renderBars(container, bars, { maxValue } = {}) {
+  const max = maxValue ?? Math.max(...bars.map(b => b.value), 1e-9);
+  container.innerHTML = "";
+  bars.forEach(bar => {
+    const row = document.createElement("div");
+    row.className = "bar-row";
+
+    const label = document.createElement("div");
+    label.className = "bar-label";
+    label.textContent = bar.label;
+    row.appendChild(label);
+
+    const track = document.createElement("div");
+    track.className = "bar-track";
+    [0, 0.5, 1].forEach(f => {
+      const g = document.createElement("div");
+      g.className = "gridline";
+      g.style.left = (f * 100) + "%";
+      track.appendChild(g);
+    });
+
+    const fill = document.createElement("div");
+    fill.className = "bar-fill";
+    const pct = max > 0 ? Math.max(0.01, bar.value / max) : 0;
+    fill.style.width = (pct * 100) + "%";
+    fill.style.left = "0";
+    fill.style.background = bar.color;
+    fill.tabIndex = 0;
+    fill.setAttribute("role", "img");
+    fill.setAttribute("aria-label", `${bar.seriesLabel || bar.label}: ${bar.formattedValue}`);
+    fill.addEventListener("pointermove", e => { showTooltip(e, bar.formattedValue, bar.seriesLabel || bar.label); });
+    fill.addEventListener("pointerleave", hideTooltip);
+    fill.addEventListener("focus", e => showTooltip(e, bar.formattedValue, bar.seriesLabel || bar.label));
+    fill.addEventListener("blur", hideTooltip);
+    track.appendChild(fill);
+    row.appendChild(track);
+
+    const value = document.createElement("div");
+    value.className = "bar-value";
+    value.textContent = bar.formattedValue;
+    row.appendChild(value);
+
+    container.appendChild(row);
+  });
+}
+
+function renderLegend(container, series) {
+  container.innerHTML = "";
+  series.forEach(s => {
+    const key = document.createElement("div");
+    key.className = "key";
+    const swatch = document.createElement("span");
+    swatch.className = "swatch";
+    swatch.style.background = s.color;
+    const text = document.createElement("span");
+    text.textContent = s.label;
+    key.appendChild(swatch);
+    key.appendChild(text);
+    container.appendChild(key);
+  });
+}
+
+function makeToggle(container, tableEl, chartEl) {
+  const chartBtn = document.createElement("button");
+  chartBtn.textContent = "Chart";
+  chartBtn.className = "active";
+  const tableBtn = document.createElement("button");
+  tableBtn.textContent = "Table";
+  chartBtn.addEventListener("click", () => {
+    chartEl.style.display = ""; tableEl.style.display = "none";
+    chartBtn.classList.add("active"); tableBtn.classList.remove("active");
+  });
+  tableBtn.addEventListener("click", () => {
+    chartEl.style.display = "none"; tableEl.style.display = "";
+    tableBtn.classList.add("active"); chartBtn.classList.remove("active");
+  });
+  container.appendChild(chartBtn);
+  container.appendChild(tableBtn);
+}
+
+function buildDataTable(columns, rows) {
+  const table = document.createElement("table");
+  table.className = "data-table";
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  columns.forEach(c => { const th = document.createElement("th"); th.textContent = c; headRow.appendChild(th); });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+  const tbody = document.createElement("tbody");
+  rows.forEach(r => {
+    const tr = document.createElement("tr");
+    r.forEach(cell => { const td = document.createElement("td"); td.textContent = cell; tr.appendChild(td); });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return table;
+}
+
+async function fetchReport(name) {
+  const res = await fetch(`/reports/${name}`);
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error(body.detail || `Failed to load report '${name}'`);
+  }
+  return res.json();
+}
+
+async function loadSystemComparison() {
+  renderLegend(document.getElementById("legend-systems"), SERIES.map(s => ({ ...s, color: resolveColor(s.color) })));
+  const body = document.getElementById("system-comparison-body");
+  try {
+    const report = await fetchReport("eval");
+    const bySystem = report.summary.overall_by_system;
+
+    const wrapper = document.createElement("div");
+    const toolbar = document.createElement("div");
+    toolbar.className = "toolbar";
+    const grid = document.createElement("div");
+    grid.className = "metric-grid card";
+    grid.style.display = "grid";
+
+    const rows = [["Metric", ...SERIES.map(s => s.label)]];
+    METRICS.forEach(metric => {
+      const card = document.createElement("div");
+      card.className = "metric-card";
+      const h3 = document.createElement("h3");
+      h3.textContent = metric.label;
+      card.appendChild(h3);
+      const chartDiv = document.createElement("div");
+      const bars = SERIES.map(s => {
+        const raw = bySystem[s.key]?.[metric.key] ?? 0;
+        const value = metric.raw ? metric.raw(raw) : raw;
+        return {
+          label: s.label,
+          value,
+          color: resolveColor(s.color),
+          formattedValue: metric.format(raw),
+          seriesLabel: metric.label,
+        };
+      });
+      renderBars(chartDiv, bars, { maxValue: metric.max ?? undefined });
+      card.appendChild(chartDiv);
+      grid.appendChild(card);
+
+      rows.push([metric.label, ...bars.map(b => b.formattedValue)]);
+    });
+
+    const tableWrap = document.createElement("div");
+    tableWrap.className = "card";
+    tableWrap.style.display = "none";
+    tableWrap.appendChild(buildDataTable(rows[0], rows.slice(1)));
+
+    makeToggle(toolbar, tableWrap, grid);
+    wrapper.appendChild(toolbar);
+    wrapper.appendChild(grid);
+    wrapper.appendChild(tableWrap);
+
+    body.innerHTML = "";
+    body.appendChild(wrapper);
+  } catch (e) {
+    body.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function loadHopDepth() {
+  const body = document.getElementById("hop-depth-body");
+  try {
+    const report = await fetchReport("eval");
+    const byCat = report.summary.by_system_and_category;
+    const wrapper = document.createElement("div");
+    wrapper.className = "card";
+
+    const legend = document.createElement("div");
+    legend.className = "legend";
+    renderLegend(legend, SERIES.map(s => ({ ...s, color: resolveColor(s.color) })));
+    wrapper.appendChild(legend);
+
+    const rows = [["Hop category", ...SERIES.map(s => s.label)]];
+    HOP_ORDER.forEach(cat => {
+      const group = document.createElement("div");
+      group.className = "hop-group";
+      const title = document.createElement("div");
+      title.className = "hop-title";
+      title.textContent = cat.replace("-", " ");
+      group.appendChild(title);
+
+      const chartDiv = document.createElement("div");
+      const bars = SERIES.map(s => {
+        const value = byCat[`${s.key}/${cat}`]?.semantic_similarity ?? 0;
+        return {
+          label: s.label,
+          value,
+          color: resolveColor(s.color),
+          formattedValue: value.toFixed(3),
+          seriesLabel: `${s.label} · ${cat}`,
+        };
+      });
+      renderBars(chartDiv, bars, { maxValue: 1 });
+      group.appendChild(chartDiv);
+      wrapper.appendChild(group);
+
+      rows.push([cat, ...bars.map(b => b.formattedValue)]);
+    });
+
+    const toolbar = document.createElement("div");
+    toolbar.className = "toolbar";
+    const tableWrap = document.createElement("div");
+    tableWrap.className = "card";
+    tableWrap.style.display = "none";
+    tableWrap.appendChild(buildDataTable(rows[0], rows.slice(1)));
+    makeToggle(toolbar, tableWrap, wrapper);
+
+    body.innerHTML = "";
+    body.appendChild(toolbar);
+    body.appendChild(wrapper);
+    body.appendChild(tableWrap);
+  } catch (e) {
+    body.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function loadAblation() {
+  const body = document.getElementById("ablation-body");
+  const toolbar = document.getElementById("ablation-toolbar");
+  try {
+    const report = await fetchReport("ablation");
+    const bySystem = report.summary.overall_by_system;
+    const ramp = ["--seq-1", "--seq-2", "--seq-3", "--seq-4", "--seq-5", "--seq-6", "--seq-7"].map(resolveColor);
+
+    let currentMetricIndex = 0;
+
+    function renderMetric(idx) {
+      const metric = ABLATION_METRICS[idx];
+      const card = document.createElement("div");
+      card.className = "card";
+      const bars = ABLATION_ORDER.map((key, i) => {
+        const raw = bySystem[key]?.[metric.key] ?? 0;
+        return {
+          label: ABLATION_LABELS[key],
+          value: raw,
+          color: ramp[i],
+          formattedValue: metric.format(raw),
+          seriesLabel: metric.label,
+        };
+      });
+      renderBars(card, bars, { maxValue: 1 });
+
+      const rows = ABLATION_ORDER.map((key, i) => [ABLATION_LABELS[key], bars[i].formattedValue]);
+      const tableWrap = document.createElement("div");
+      tableWrap.className = "card";
+      tableWrap.style.display = "none";
+      tableWrap.appendChild(buildDataTable(["Configuration", metric.label], rows));
+
+      const localToolbar = document.createElement("div");
+      localToolbar.className = "toolbar";
+      makeToggle(localToolbar, tableWrap, card);
+
+      body.innerHTML = "";
+      body.appendChild(localToolbar);
+      body.appendChild(card);
+      body.appendChild(tableWrap);
+    }
+
+    toolbar.innerHTML = "";
+    ABLATION_METRICS.forEach((m, idx) => {
+      const btn = document.createElement("button");
+      btn.textContent = m.label;
+      if (idx === 0) btn.classList.add("active");
+      btn.addEventListener("click", () => {
+        [...toolbar.children].forEach(c => c.classList.remove("active"));
+        btn.classList.add("active");
+        renderMetric(idx);
+      });
+      toolbar.appendChild(btn);
+    });
+
+    renderMetric(currentMetricIndex);
+  } catch (e) {
+    body.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function loadErrors() {
+  const body = document.getElementById("errors-body");
+  try {
+    const report = await fetchReport("errors");
+    const counts = report.error_category_counts_by_system;
+
+    const grid = document.createElement("div");
+    grid.className = "error-grid";
+
+    SERIES.forEach(s => {
+      const cats = counts[s.key] || {};
+      const entries = Object.entries(cats).filter(([k]) => k !== "none").sort((a, b) => b[1] - a[1]);
+
+      const card = document.createElement("div");
+      card.className = "card error-card";
+      const h3 = document.createElement("h3");
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      dot.style.background = resolveColor(s.color);
+      h3.appendChild(dot);
+      h3.appendChild(document.createTextNode(s.label));
+      card.appendChild(h3);
+
+      if (entries.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "No incorrect answers below the F1 threshold.";
+        card.appendChild(empty);
+      } else {
+        const chartDiv = document.createElement("div");
+        const maxCount = Math.max(...entries.map(([, v]) => v));
+        const bars = entries.map(([cat, count]) => ({
+          label: cat.replace(/_/g, " "),
+          value: count,
+          color: resolveColor(s.color),
+          formattedValue: String(count),
+          seriesLabel: s.label,
+        }));
+        renderBars(chartDiv, bars, { maxValue: maxCount });
+        card.appendChild(chartDiv);
+      }
+      grid.appendChild(card);
+    });
+
+    body.innerHTML = "";
+    body.appendChild(grid);
+  } catch (e) {
+    body.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+document.addEventListener("pointermove", moveTooltip);
+
+loadSystemComparison();
+loadHopDepth();
+loadAblation();
+loadErrors();
+</script>
+</body>
+</html>

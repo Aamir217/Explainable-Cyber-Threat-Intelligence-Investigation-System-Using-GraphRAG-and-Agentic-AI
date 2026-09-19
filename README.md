@@ -170,9 +170,17 @@ python -m cti_graphrag.evaluation.ablation
 python -m cti_graphrag.evaluation.error_analysis
 ```
 
-The dashboard lets you ask a question against any of the 4 systems, or click
+The dashboard (`/`) lets you ask a question against any of the 4 systems, or click
 **"Compare all 4 systems"** to see them side by side, with the answer, tool calls,
 graph reasoning path, citations, and (for the agentic system) a faithfulness bar.
+
+A second page, **`/results.html`** ("Evaluation results" in the nav bar), visualizes the
+generated `reports/*.json` from the commands above: per-metric bar charts comparing all
+4 systems, a chart of semantic similarity broken out by hop depth (does the GraphRAG
+advantage actually grow with reasoning depth?), the 7-step ablation progression, and
+per-system error-category breakdowns — each with a hover tooltip and a table-view
+toggle. It reads live from the API, so re-running the evaluation scripts and refreshing
+the page shows updated numbers.
 
 ## Configuration
 
